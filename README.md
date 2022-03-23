@@ -1,19 +1,5 @@
-## Customize this file after creating the new REPO and remove this lines.
-What to adjust:  
-* Add the your project or repo name direct under the logo.
-* Add a short and long desciption.
-* Add links for your final repo to report a bug or request a feature.
-* Add list of used technologies.
-* If you have, add a roadmap or remove this section.
-* Fill up the section for set up and documentation.
- * Start in this file only with documentation and link to the docs folder.
-* Add project shields. Use [shields.io](https://shields.io/)
-
-## ------- end to remove -------
 <div id="top"></div>
-
 <!-- PROJECT SHIELDS -->
-
 <!-- END OF PROJECT SHIELDS -->
 
 <!-- PROJECT LOGO -->
@@ -23,10 +9,10 @@ What to adjust:
     <img src="/images/logo.png" alt="Logo" height="200">
   </a>
 
-<h3 align="center">DigiWF <i>repo or project name</i></h3>
+<h3 align="center">Epitaph IPS</h3>
 
   <p align="center">
-    <i>Add a here a short description</i>
+    <i>Library with utilities to calculate a users position written in Dart</i>
     <br /><a href="#">Report Bug</a>
     ·
     <a href="#">Request Feature</a>
@@ -36,36 +22,33 @@ What to adjust:
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-*Add a description from your project here.*
+Epitaph has a wide array of utilities to position your user in a building. The project is intended to be used to only calculate the position on the user's device. 
+It has been written in Dart using the Flutter framework. Bluetooth Low Energy (BLE) beacons are used to make the calculations possible.
+Received Signal Strength Indication (RSSI) values are used to calculate the user’s location in the real world. 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 ### Built With
 
-The documentation project is built with technologies we use in our projects:
+This library has been build with:
+ - [Flutter](https://flutter.dev/)
 
-* *write here the list of used technologies*
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- ROADMAP -->
-## Roadmap
+## Installation
 
-*if you have a ROADMAP for your project add this here*
-
-
-See the [open issues](#) for a full list of proposed features (and known issues).
+<i>Will be updated</i>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## Set up
-*how can i start and fly this project*
+## Usage
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<i>Will be updated</i>
 
 ## Documentation
-*what insights do you have to tell*
+<i>Will be updated</i>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -84,7 +67,19 @@ Don't forget to give the project a star! Thanks again!
 5. Push to the Branch (`git push origin feature/AmazingFeature`)
 6. Open a Pull Request
 
+The Flutter Team has a great guide [here](https://docs.flutter.dev/get-started/install) how to set up everything needed.
+
+We also would suggest looking into the Flutter Team's style guide [here](https://github.com/flutter/flutter/wiki/Style-guide-for-Flutter-repo)
+
 More about this in the [CODE_OF_CONDUCT](/CODE_OF_CONDUCT.md) file.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- ROADMAP -->
+## Roadmap
+
+
+See the [open issues](#) for a full list of proposed features, known issues and out latest Roadmap.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -95,7 +90,6 @@ More about this in the [CODE_OF_CONDUCT](/CODE_OF_CONDUCT.md) file.
 Distributed under the MIT License. See `LICENSE` file for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- CONTACT -->
