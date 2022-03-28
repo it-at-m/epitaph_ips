@@ -97,7 +97,7 @@ Distributed under the MIT License. See `LICENSE` file for more information.
 
 it@m - opensource@muenchendigital.io
 
-[join our slack channel](https://join.slack.com/t/digiwf/shared_invite/zt-14jxazj1j-jq0WNtXp7S7HAwJA7tKgpw)
+[join our slack channel](https://join.slack.com/t/epitaph-ips/shared_invite/zt-164oqyxvl-pNIGa9n6jA1fJZmk1h6zeg)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
