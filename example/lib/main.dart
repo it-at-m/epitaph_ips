@@ -29,13 +29,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   final List<String> _epitaphAPI = <String>["Add one", "Add two", "Add three"];
-  final List _epitaphCalls = [Calculator().addOne, Calculator().addTwo, Calculator().addThree];
+  final List _epitaphCalls = [
+    Calculator().addOne,
+    Calculator().addTwo,
+    Calculator().addThree
+  ];
   final List _outputs = [0, 0, 0];
 
-  void _doNothing(){
+  void _doNothing() {
     // stub
   }
 
@@ -55,16 +57,18 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: const EdgeInsets.all(8),
           itemCount: _outputs.length,
           itemBuilder: (BuildContext context, int index) {
-            final ButtonStyle style = ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 30, color: Colors.white));
+            final ButtonStyle style = ElevatedButton.styleFrom(
+                textStyle: const TextStyle(fontSize: 30, color: Colors.white));
 
-            _onPressed(){
+            _onPressed() {
               return _functionDemo(index);
             }
 
             return ElevatedButton(
               onPressed: _onPressed,
               style: style,
-              child: Text("Test ${_epitaphAPI[index]}: " + _outputs[index].toString()),
+              child: Text(
+                  "Test ${_epitaphAPI[index]}: " + _outputs[index].toString()),
             );
           }),
       floatingActionButton: FloatingActionButton(
