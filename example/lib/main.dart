@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // stub
   }
 
-  _incrementCounter(int i) {
+  _functionDemo(int i) {
     setState(() {
       _outputs[i] = _epitaphCalls[i](_outputs[i]);
     });
@@ -56,8 +56,13 @@ class _MyHomePageState extends State<MyHomePage> {
           itemCount: _outputs.length,
           itemBuilder: (BuildContext context, int index) {
             final ButtonStyle style = ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 30, color: Colors.white));
+
+            _onPressed(){
+              return _functionDemo(index);
+            }
+
             return ElevatedButton(
-              onPressed: () => _incrementCounter(index),
+              onPressed: _onPressed,
               style: style,
               child: Text("Test ${_epitaphAPI[index]}: " + _outputs[index].toString()),
             );
