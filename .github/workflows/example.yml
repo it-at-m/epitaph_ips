@@ -1,0 +1,34 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+#taken from: https://github.com/marketplace/actions/flutter-action
+#and: https://github.com/fleaflet/flutter_map/blob/master/.github/workflows/flutter.yml
+
+name: Example App CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+defaults:
+  run:
+    shell: bash
+jobs:
+  test:
+    name: "Analyze and test Example app"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+      - run: flutter pub get
+        working-directory: ./example
+      - run: dart format --output=none --set-exit-if-changed .
+        working-directory: ./example
+      - run: dart analyze --fatal-infos --fatal-warnings
+        working-directory: ./example
+      - run: flutter test -r expanded
+        working-directory: ./example
