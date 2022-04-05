@@ -1,7 +1,7 @@
 import 'package:epitaph_ips/epitaph_graphs/graphs/graph.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/building.dart';
 import 'package:epitaph_ips/epitaph_ips/tracking/tracker.dart';
 import 'package:flutter/material.dart';
+import 'building_form.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,13 +45,6 @@ class _MyHomePageState extends State<MyHomePage> {
     "Tracking"
   ];
 
-  _functionDemo(int i) {
-    Navigator.pushNamed(context, "/${_routes[i]}");
-    /*setState(() {
-      _outputs[i] = _epitaphCalls[i](_outputs[i]);
-    });*/
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 textStyle: const TextStyle(fontSize: 30, color: Colors.white));
 
             _onPressed() {
-              return _functionDemo(index);
+              Navigator.pushNamed(context, "/${_routes[index]}");
             }
 
             return ElevatedButton(
@@ -75,29 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text(_routes[index]),
             );
           }),
-    );
-  }
-}
-
-class BuildingForm extends StatelessWidget {
-  const BuildingForm({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Second Screen'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Navigate back to the first screen by popping the current route
-            // off the stack.
-            Navigator.pop(context);
-          },
-          child: const Text('Go back!'),
-        ),
-      ),
     );
   }
 }
