@@ -45,7 +45,29 @@ This library has been build with:
 
 ## Usage
 
-<i>Will be updated</i>
+<i>In Progress</i>
+
+### Tracking
+The tracking system consists of multiple modules that can theoretically be used individually as well.
+
+#### Module descriptions
+- **Calculator** - module for calculating a raw position through the use of read values, i.e. RSSI-values from BLE beacons
+- **Filter** - module for smoothening out raw positions. This can be particularly useful when values tend to be noisy
+- **Tracker** - module that uses Calculator and Filter to contininuosly track the user's position
+- **Mapper** (inherits from Tracker) - module for tracking a user's position on a map (with correlating graph, nodes and edges)
+
+#### Calculator
+- consists of `Coordinate calculate(List<Beacon>)`
+- reads certain values from said list and calculates a position using those values
+
+#### Filter
+- consists of `Coordinate filter(Coordinate)`, `void configFilter(Coordinate)`, `void reset()`
+- an implemented filter should continuously take in a coordinate, process it and save the result for upcoming processing
+- 
+
+#### Tracker
+
+#### Mapper
 
 ## Documentation
 <i>Will be updated</i>
