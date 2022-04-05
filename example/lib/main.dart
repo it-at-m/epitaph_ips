@@ -1,4 +1,6 @@
-import 'package:epitaph_ips/epitaph_ips.dart';
+import 'package:epitaph_ips/epitaph_graphs/graphs/graph.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/building.dart';
+import 'package:epitaph_ips/epitaph_ips/tracking/tracker.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +16,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Epitaph Demo',
       theme: ThemeData(),
-      home: const MyHomePage(title: 'Epitaph Demo Home Page'),
+      initialRoute: '/',
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/': (context) => const MyHomePage(title: 'Epitaph Demo Home Page'),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/Create Building': (context) => const BuildingForm(),
+        '/Create Graph': (context) => const BuildingForm(),
+        '/Tracking': (context) => const BuildingForm(),
+      },
     );
   }
 }
@@ -29,22 +39,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<String> _epitaphAPI = <String>["Add one", "Add two", "Add three"];
-  final List _epitaphCalls = [
-    Calculator().addOne,
-    Calculator().addTwo,
-    Calculator().addThree
+  final List<String> _routes = <String>[
+    "Create Building",
+    "Create Graph",
+    "Tracking"
   ];
-  final List _outputs = [0, 0, 0];
-
-  void _doNothing() {
-    // stub
-  }
 
   _functionDemo(int i) {
-    setState(() {
+    Navigator.pushNamed(context, "/${_routes[i]}");
+    /*setState(() {
       _outputs[i] = _epitaphCalls[i](_outputs[i]);
-    });
+    });*/
   }
 
   @override
@@ -55,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView.builder(
           padding: const EdgeInsets.all(8),
-          itemCount: _outputs.length,
+          itemCount: _routes.length,
           itemBuilder: (BuildContext context, int index) {
             final ButtonStyle style = ElevatedButton.styleFrom(
                 textStyle: const TextStyle(fontSize: 30, color: Colors.white));
@@ -67,14 +72,31 @@ class _MyHomePageState extends State<MyHomePage> {
             return ElevatedButton(
               onPressed: _onPressed,
               style: style,
-              child: Text(
-                  "Test ${_epitaphAPI[index]}: " + _outputs[index].toString()),
+              child: Text(_routes[index]),
             );
           }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _doNothing,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    );
+  }
+}
+
+class BuildingForm extends StatelessWidget {
+  const BuildingForm({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Second Screen'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigate back to the first screen by popping the current route
+            // off the stack.
+            Navigator.pop(context);
+          },
+          child: const Text('Go back!'),
+        ),
       ),
     );
   }
