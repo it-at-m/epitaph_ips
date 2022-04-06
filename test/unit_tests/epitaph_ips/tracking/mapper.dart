@@ -4,7 +4,7 @@ import 'package:epitaph_ips/epitaph_graphs/graphs/epitaph_graph.dart';
 import 'package:epitaph_ips/epitaph_graphs/nodes/epitaph_edge.dart';
 import 'package:epitaph_ips/epitaph_graphs/nodes/epitaph_vertex.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/building.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/polygonal_area.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/world_location.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/beacon.dart';
@@ -19,62 +19,46 @@ class MapperTests {
     tearDownAll(() {});
 
     Map<EpitaphVertex, List<EpitaphEdge>> testMap = {
-      EpitaphVertex('1', Coordinate(1, 1)): [
-        EpitaphEdge(EpitaphVertex('1', Coordinate(1, 1)),
-            EpitaphVertex('2', Coordinate(2, 2)), 1, EpitaphEdgeAttributes(), 0)
+      EpitaphVertex('1', Point(1, 1)): [
+        EpitaphEdge(EpitaphVertex('1', Point(1, 1)),
+            EpitaphVertex('2', Point(2, 2)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('2', Coordinate(2, 2)): [
-        EpitaphEdge(
-            EpitaphVertex('2', Coordinate(2, 2)),
-            EpitaphVertex('3', Coordinate(3, 3)),
-            1,
-            EpitaphEdgeAttributes(),
-            0),
-        EpitaphEdge(EpitaphVertex('2', Coordinate(2, 2)),
-            EpitaphVertex('4', Coordinate(4, 4)), 1, EpitaphEdgeAttributes(), 0)
+      EpitaphVertex('2', Point(2, 2)): [
+        EpitaphEdge(EpitaphVertex('2', Point(2, 2)),
+            EpitaphVertex('3', Point(3, 3)), 1, EpitaphEdgeAttributes(), 0),
+        EpitaphEdge(EpitaphVertex('2', Point(2, 2)),
+            EpitaphVertex('4', Point(4, 4)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('3', Coordinate(3, 3)): [
-        EpitaphEdge(EpitaphVertex('3', Coordinate(3, 3)),
-            EpitaphVertex('4', Coordinate(4, 4)), 1, EpitaphEdgeAttributes(), 0)
+      EpitaphVertex('3', Point(3, 3)): [
+        EpitaphEdge(EpitaphVertex('3', Point(3, 3)),
+            EpitaphVertex('4', Point(4, 4)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('4', Coordinate(4, 4)): [
-        EpitaphEdge(
-            EpitaphVertex('4', Coordinate(4, 4)),
-            EpitaphVertex('5', Coordinate(5, 5)),
-            1,
-            EpitaphEdgeAttributes(),
-            0),
-        EpitaphEdge(EpitaphVertex('4', Coordinate(4, 4)),
-            EpitaphVertex('6', Coordinate(6, 6)), 1, EpitaphEdgeAttributes(), 0)
+      EpitaphVertex('4', Point(4, 4)): [
+        EpitaphEdge(EpitaphVertex('4', Point(4, 4)),
+            EpitaphVertex('5', Point(5, 5)), 1, EpitaphEdgeAttributes(), 0),
+        EpitaphEdge(EpitaphVertex('4', Point(4, 4)),
+            EpitaphVertex('6', Point(6, 6)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('5', Coordinate(5, 5)): [
-        EpitaphEdge(
-            EpitaphVertex('5', Coordinate(5, 5)),
-            EpitaphVertex('9', Coordinate(9, 9)),
-            1,
-            EpitaphEdgeAttributes(),
-            0),
-        EpitaphEdge(EpitaphVertex('5', Coordinate(5, 5)),
-            EpitaphVertex('8', Coordinate(8, 8)), 1, EpitaphEdgeAttributes(), 0)
+      EpitaphVertex('5', Point(5, 5)): [
+        EpitaphEdge(EpitaphVertex('5', Point(5, 5)),
+            EpitaphVertex('9', Point(9, 9)), 1, EpitaphEdgeAttributes(), 0),
+        EpitaphEdge(EpitaphVertex('5', Point(5, 5)),
+            EpitaphVertex('8', Point(8, 8)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('6', Coordinate(6, 6)): [
-        EpitaphEdge(EpitaphVertex('6', Coordinate(6, 6)),
-            EpitaphVertex('7', Coordinate(7, 7)), 1, EpitaphEdgeAttributes(), 0)
+      EpitaphVertex('6', Point(6, 6)): [
+        EpitaphEdge(EpitaphVertex('6', Point(6, 6)),
+            EpitaphVertex('7', Point(7, 7)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('7', Coordinate(7, 7)): [
-        EpitaphEdge(EpitaphVertex('7', Coordinate(7, 7)),
-            EpitaphVertex('8', Coordinate(8, 8)), 1, EpitaphEdgeAttributes(), 0)
+      EpitaphVertex('7', Point(7, 7)): [
+        EpitaphEdge(EpitaphVertex('7', Point(7, 7)),
+            EpitaphVertex('8', Point(8, 8)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('8', Coordinate(8, 8)): [],
-      EpitaphVertex('9', Coordinate(9, 9)): [
-        EpitaphEdge(
-            EpitaphVertex('9', Coordinate(9, 9)),
-            EpitaphVertex('10', Coordinate(10, 10)),
-            1,
-            EpitaphEdgeAttributes(),
-            0)
+      EpitaphVertex('8', Point(8, 8)): [],
+      EpitaphVertex('9', Point(9, 9)): [
+        EpitaphEdge(EpitaphVertex('9', Point(9, 9)),
+            EpitaphVertex('10', Point(10, 10)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('10', Coordinate(10, 10)): []
+      EpitaphVertex('10', Point(10, 10)): []
     };
 
     //Arrange
@@ -85,12 +69,8 @@ class MapperTests {
         key: 'InnoLab',
         location: WorldLocation(streetName: 'APB', streetNumber: 66),
         floors: [],
-        area: PolygonalArea(points: [
-          Coordinate(0, 0),
-          Coordinate(60, 0),
-          Coordinate(60, 60),
-          Coordinate(0, 60)
-        ]));
+        area: PolygonalArea(
+            points: [Point(0, 0), Point(60, 0), Point(60, 60), Point(0, 60)]));
 
     EpitaphGraph graph = EpitaphGraph(testMap);
 
@@ -98,10 +78,10 @@ class MapperTests {
       test('get mappedPosition', () {
         //Arrange
         Mapper mapper = Mapper(calculator, filter, graph, building);
-        Coordinate expected = Coordinate.origin();
+        Point expected = Point.origin();
 
         //Act
-        Coordinate received = mapper.mappedPosition;
+        Point received = mapper.mappedPosition;
 
         //Expect
         expect(received, expected);
@@ -148,7 +128,7 @@ class MapperTests {
         //Arrange
         Mapper mapper = Mapper(calculator, filter, graph, building);
         String expected =
-            'Path({EpitaphVertex(id: 1, coordinate: Coordinate(x: 1.0, y: 1.0, z: 0.0)), EpitaphVertex(id: 2, coordinate: Coordinate(x: 2.0, y: 2.0, z: 0.0)), EpitaphVertex(id: 4, coordinate: Coordinate(x: 4.0, y: 4.0, z: 0.0)), EpitaphVertex(id: 5, coordinate: Coordinate(x: 5.0, y: 5.0, z: 0.0)), EpitaphVertex(id: 9, coordinate: Coordinate(x: 9.0, y: 9.0, z: 0.0)), EpitaphVertex(id: 10, coordinate: Coordinate(x: 10.0, y: 10.0, z: 0.0))})';
+            'Path({EpitaphVertex(id: 1, Point: Point(x: 1.0, y: 1.0, z: 0.0)), EpitaphVertex(id: 2, Point: Point(x: 2.0, y: 2.0, z: 0.0)), EpitaphVertex(id: 4, Point: Point(x: 4.0, y: 4.0, z: 0.0)), EpitaphVertex(id: 5, Point: Point(x: 5.0, y: 5.0, z: 0.0)), EpitaphVertex(id: 9, Point: Point(x: 9.0, y: 9.0, z: 0.0)), EpitaphVertex(id: 10, Point: Point(x: 10.0, y: 10.0, z: 0.0))})';
 
         //Act
         String received = mapper.getShortestPath('10', '1').toString();
@@ -175,25 +155,25 @@ class MapperTests {
 
 class _MockCalculator implements Calculator {
   @override
-  Coordinate calculate(List<Beacon> beacons) {
+  Point calculate(List<Beacon> beacons) {
     return beacons.fold(
-            Coordinate.origin(),
+            Point.origin(),
             (previousValue, element) =>
-                (previousValue as Coordinate) + element.position) /
+                (previousValue as Point) + element.position) /
         beacons.length;
   }
 }
 
 class _MockFilter extends Filter {
-  Coordinate current = Coordinate(0, 0);
-  List<Coordinate> values = [];
+  Point current = Point(0, 0);
+  List<Point> values = [];
 
   @override
-  Coordinate filter(Coordinate newPosition) {
+  Point filter(Point newPosition) {
     if (values.isEmpty) {
       configFilter(newPosition);
     } else {
-      Coordinate sum =
+      Point sum =
           (values.reduce((value, element) => value + element)) / values.length;
       current = (sum + newPosition) / 2;
     }
@@ -202,14 +182,14 @@ class _MockFilter extends Filter {
   }
 
   @override
-  void configFilter(Coordinate initialPosition) {
+  void configFilter(Point initialPosition) {
     current = initialPosition.copy();
     values.add(initialPosition.copy());
   }
 
   @override
   void reset() {
-    current = Coordinate(0, 0);
+    current = Point(0, 0);
     values = [];
   }
 }

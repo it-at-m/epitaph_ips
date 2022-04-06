@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/tracking/filter.dart';
 
 class FilterTests {
@@ -11,19 +11,19 @@ class FilterTests {
       test('filter', () {
         //Arrange
         _MockFilter filter = _MockFilter();
-        List<Coordinate> coordinates = [];
-        Coordinate expected = Coordinate(3, 3, 3);
+        List<Point> points = [];
+        Point expected = Point(3, 3, 3);
 
         for (int i = 0; i < 7; i++) {
-          coordinates.add(Coordinate(i.toDouble(), i.toDouble(), i.toDouble()));
+          points.add(Point(i.toDouble(), i.toDouble(), i.toDouble()));
         }
 
         //Act
-        for (var element in coordinates) {
+        for (var element in points) {
           filter.filter(element);
         }
 
-        Coordinate received = filter.current;
+        Point received = filter.current;
 
         //Expected
         expect(() {
@@ -36,8 +36,8 @@ class FilterTests {
       test('configFilter', () {
         //Arrange
         _MockFilter filter = _MockFilter();
-        Coordinate initialPosition = Coordinate(1, 1, 7);
-        Coordinate expectedCurrent = Coordinate(1, 1, 7);
+        Point initialPosition = Point(1, 1, 7);
+        Point expectedCurrent = Point(1, 1, 7);
 
         //Act
         filter.configFilter(initialPosition);
@@ -52,15 +52,15 @@ class FilterTests {
       test('reset', () {
         //Arrange
         _MockFilter filter = _MockFilter();
-        List<Coordinate> coordinates = [];
-        Coordinate expectedCurrent = Coordinate.origin();
+        List<Point> points = [];
+        Point expectedCurrent = Point.origin();
 
         for (int i = 0; i < 7; i++) {
-          coordinates.add(Coordinate(i.toDouble(), i.toDouble(), i.toDouble()));
+          points.add(Point(i.toDouble(), i.toDouble(), i.toDouble()));
         }
 
         //Act
-        for (var element in coordinates) {
+        for (var element in points) {
           filter.filter(element);
         }
 
@@ -77,15 +77,15 @@ class FilterTests {
 }
 
 class _MockFilter extends Filter {
-  Coordinate current = Coordinate(0, 0);
-  List<Coordinate> values = [];
+  Point current = Point(0, 0);
+  List<Point> values = [];
 
   @override
-  Coordinate filter(Coordinate newPosition) {
+  Point filter(Point newPosition) {
     if (values.isEmpty) {
       configFilter(newPosition);
     } else {
-      Coordinate sum =
+      Point sum =
           (values.reduce((value, element) => value + element)) / values.length;
       current = (sum + newPosition) / 2;
     }
@@ -94,14 +94,14 @@ class _MockFilter extends Filter {
   }
 
   @override
-  void configFilter(Coordinate initialPosition) {
+  void configFilter(Point initialPosition) {
     current = initialPosition.copy();
     values.add(initialPosition.copy());
   }
 
   @override
   void reset() {
-    current = Coordinate(0, 0);
+    current = Point(0, 0);
     values = [];
   }
 }

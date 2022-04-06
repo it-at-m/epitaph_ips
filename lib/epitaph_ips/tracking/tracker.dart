@@ -1,4 +1,4 @@
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/beacon.dart';
 import 'package:epitaph_ips/epitaph_ips/tracking/calculator.dart';
 import 'package:ml_linalg/linalg.dart';
@@ -10,30 +10,30 @@ class Tracker {
 
   double _accuracy = 2;
   int _counter = 0;
-  Coordinate _calculatedPosition = Coordinate.origin();
-  Coordinate _filteredPosition = Coordinate.origin();
-  Coordinate _finalPosition = Coordinate.origin();
-  Coordinate _prevFinal = Coordinate.origin();
-  Coordinate _comparison = Coordinate.origin();
+  Point _calculatedPosition = Point.origin();
+  Point _filteredPosition = Point.origin();
+  Point _finalPosition = Point.origin();
+  Point _prevFinal = Point.origin();
+  Point _comparison = Point.origin();
   final Calculator _calculator;
   final Filter _filter;
 
   double get accuracy => _accuracy;
 
-  Coordinate get calculatedPosition => _calculatedPosition;
+  Point get calculatedPosition => _calculatedPosition;
 
-  Coordinate get filteredPosition => _filteredPosition;
+  Point get filteredPosition => _filteredPosition;
 
-  Coordinate get finalPosition => _finalPosition;
+  Point get finalPosition => _finalPosition;
 
   /// Resets the members of this class to their original value.
   void reset() {
     _filter.reset();
     _accuracy = 2.0;
-    _calculatedPosition = Coordinate.origin();
-    _filteredPosition = Coordinate.origin();
-    _prevFinal = Coordinate.origin();
-    _finalPosition = Coordinate.origin();
+    _calculatedPosition = Point.origin();
+    _filteredPosition = Point.origin();
+    _prevFinal = Point.origin();
+    _finalPosition = Point.origin();
   }
 
   /// calling this engages the positioning system
@@ -52,13 +52,13 @@ class Tracker {
     _prevFinal = _calculatedPosition.copy();
   }
 
-  ///Calculates the user's position using a list of known coordinates
-  Coordinate calculatePosition(List<Beacon> beacons) {
+  ///Calculates the user's position using a list of known Points
+  Point calculatePosition(List<Beacon> beacons) {
     return _calculator.calculate(beacons);
   }
 
   ///Filter calculated position
-  Coordinate filterPosition([Coordinate? position]) {
+  Point filterPosition([Point? position]) {
     position = position ?? _calculatedPosition;
     return _filter.filter(position);
   }
@@ -68,7 +68,7 @@ class Tracker {
 
     if (distance > _accuracy) {
       Vector vector = (_filteredPosition - _prevFinal).toVector();
-      _finalPosition = Coordinate.vector(_prevFinal.toVector() + vector * 0.5);
+      _finalPosition = Point.vector(_prevFinal.toVector() + vector * 0.5);
     } else {
       _finalPosition = _prevFinal.copy();
     }

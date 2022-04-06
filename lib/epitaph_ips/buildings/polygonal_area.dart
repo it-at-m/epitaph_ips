@@ -1,11 +1,11 @@
 import 'dart:collection';
 import 'dart:math';
 import 'package:epitaph_ips/epitaph_ips/buildings/area.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 
 /// An implementation of a polygonal 2 dimensional [Area]. A convex hull is build from the list of [points] when an object is instantiated.
 class PolygonalArea extends Area {
-  PolygonalArea({required List<Coordinate> points}) : super(points: points) {
+  PolygonalArea({required List<Point> points}) : super(points: points) {
     assert(points.length > 2, "An area needs at least 3 points");
     convexHullPoints = _convexHullGenerator(super.points);
   }
@@ -15,11 +15,11 @@ class PolygonalArea extends Area {
     convexHullPoints = _convexHullGenerator(super.points);
   }
 
-  List<Coordinate>? convexHullPoints;
+  List<Point>? convexHullPoints;
 
   ///A raycast checks if the [point] is inside the [convexHullPoints].
   @override
-  bool pointInArea(Coordinate point) {
+  bool pointInArea(Point point) {
     //Raycasting the convex hull
     bool inside = false;
 
@@ -35,7 +35,7 @@ class PolygonalArea extends Area {
   }
 
   ///Needed for raycasts. Checks if a point [p] intersects if an edge spanning [a] and [b].
-  bool _intersectsWithEdge(Coordinate a, Coordinate b, Coordinate p) {
+  bool _intersectsWithEdge(Point a, Point b, Point p) {
     double py = p.y;
 
     //recursion, if I understood this correctly it will call itself one additional time.
@@ -52,23 +52,23 @@ class PolygonalArea extends Area {
     return red >= blue;
   }
 
-  List<Coordinate> _convexHullGenerator(List<Coordinate> points) {
-    List<Coordinate> sorted = _sortPoints(points);
+  List<Point> _convexHullGenerator(List<Point> points) {
+    List<Point> sorted = _sortPoints(points);
 
     assert(
         sorted.length > 2, 'A 2d convex hull needs at least  3 unique points');
     assert(!_collinearListCheck(points),
         'A convex hull can only be created if not every point is collinear in the list');
 
-    Stack<Coordinate> stack = Stack();
+    Stack<Point> stack = Stack();
 
     stack.push(sorted[0]);
     stack.push(sorted[1]);
 
     for (int i = 2; i < sorted.length; i++) {
-      Coordinate head = sorted[i];
-      Coordinate middle = stack.pop();
-      Coordinate tail = stack.peek;
+      Point head = sorted[i];
+      Point middle = stack.pop();
+      Point tail = stack.peek;
 
       _TurnTypes turn = _checkTurnType(tail, middle, head);
 
@@ -91,11 +91,10 @@ class PolygonalArea extends Area {
   }
 
   /// Sorts points in order of their angles dependent on the lowest point the a list of [points].
-  List<Coordinate> _sortPoints(List<Coordinate> points) {
-    final Coordinate starting = _lowestPoint(points);
+  List<Point> _sortPoints(List<Point> points) {
+    final Point starting = _lowestPoint(points);
 
-    SplayTreeSet<Coordinate> sorted =
-        SplayTreeSet((Coordinate a, Coordinate b) {
+    SplayTreeSet<Point> sorted = SplayTreeSet((Point a, Point b) {
       if (a == b) return 0;
       double thetaA = atan2(a.y - starting.y, a.x - starting.x);
       double thetaB = atan2(b.y - starting.y, b.x - starting.x);
@@ -122,11 +121,11 @@ class PolygonalArea extends Area {
   }
 
   /// Min y point of [points]
-  Coordinate _lowestPoint(List<Coordinate> points) {
-    Coordinate lowest = points[0];
+  Point _lowestPoint(List<Point> points) {
+    Point lowest = points[0];
 
     for (int i = 1; i < points.length; i++) {
-      Coordinate current = points[i];
+      Point current = points[i];
       if (current.y < lowest.y ||
           (current.y == lowest.y && current.x < lowest.x)) {
         lowest = current;
@@ -136,21 +135,21 @@ class PolygonalArea extends Area {
   }
 
   /// Returns true if every point in [points] List is collinear to each other.
-  bool _collinearListCheck(List<Coordinate> points) {
+  bool _collinearListCheck(List<Point> points) {
     if (points.length < 2) return true;
 
-    Coordinate a = points[0];
-    Coordinate b = points[1];
+    Point a = points[0];
+    Point b = points[1];
 
     for (int i = 2; i < points.length; i++) {
-      Coordinate c = points[i];
+      Point c = points[i];
       if (_checkTurnType(a, b, c) != _TurnTypes.collinear) return false;
     }
     return true;
   }
 
   /// Uses trigonometry to determine in which direction a collection of three points turn.
-  _TurnTypes _checkTurnType(Coordinate a, Coordinate b, Coordinate c) {
+  _TurnTypes _checkTurnType(Point a, Point b, Point c) {
     double crossProduct =
         ((b.x - a.x) * (c.y - a.y)) - ((b.y - a.y) * (c.x - a.x));
 
@@ -182,10 +181,10 @@ class PolygonalArea extends Area {
 }
 
 // Makes it possible to load from JSON
-List<Coordinate> _jsonToList(Map<String, dynamic> json) {
-  List<Coordinate> pointsList = [];
+List<Point> _jsonToList(Map<String, dynamic> json) {
+  List<Point> pointsList = [];
   json['points'].forEach((element) {
-    pointsList.add(Coordinate.fromJson(element));
+    pointsList.add(Point.fromJson(element));
   });
 
   return pointsList;

@@ -57,13 +57,13 @@ The tracking system consists of multiple modules that can theoretically be used 
 - **Mapper** (inherits from Tracker) - module for tracking a user's position on a map (with correlating graph, nodes and edges)
 
 #### Calculator (abstract)
-- consists of `Coordinate calculate(List<Beacon>)`
+- consists of `Point calculate(List<Beacon>)`
 - reads certain values from said list and calculates a position using those values
 - Epitaph IPS provides an implemented (nonlinear trilateration) Calculator, which uses a simple Levenberg-Marquardt algorithm
 
 #### Filter (abstract)
-- consists of `Coordinate filter(Coordinate)`, `void configFilter(Coordinate)`, `void reset()`
-- an implemented filter should continuously take in a coordinate, process it and save the result for upcoming processing
+- consists of `Point filter(Point)`, `void configFilter(Point)`, `void reset()`
+- an implemented filter should continuously take in a point, process it and save the result for upcoming processing
 - Epitaph IPS provieds an implemented filter in the form of simple unscented Kalmen filter
 
 #### Tracker
@@ -115,7 +115,7 @@ tracker.finalPosition;
 tracker.calculatedPosition;
 tracker.filteredPosition;
 
-//Filter can be used independently from tracker; provide Coordinate instance for filter method
+//Filter can be used independently from tracker; provide Point instance for filter method
 filter.filter(...);
 
 //Calculator can be used independently from tracker; provide a list with at least 3 Beacon instances

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/floor.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/landmark.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/polygonal_area.dart';
@@ -13,29 +13,17 @@ class FloorTests {
 
     Landmark testmark = Landmark(
         key: 'TestLandmark',
-        area: PolygonalArea(points: [
-          Coordinate(1, 1),
-          Coordinate(2, 1),
-          Coordinate(3, 3),
-          Coordinate(4, 3)
-        ]));
+        area: PolygonalArea(
+            points: [Point(1, 1), Point(2, 1), Point(3, 3), Point(4, 3)]));
 
     Room testRoom = Room(
         key: 'TestRoom',
-        area: PolygonalArea(points: [
-          Coordinate(7, 7),
-          Coordinate(7, 6),
-          Coordinate(10, 10),
-          Coordinate(10, 9)
-        ]));
+        area: PolygonalArea(
+            points: [Point(7, 7), Point(7, 6), Point(10, 10), Point(10, 9)]));
 
     Floor testFloor = Floor(
-        area: PolygonalArea(points: [
-          Coordinate(0, 0),
-          Coordinate(15, 0),
-          Coordinate(20, 20),
-          Coordinate(0, 20)
-        ]),
+        area: PolygonalArea(
+            points: [Point(0, 0), Point(15, 0), Point(20, 20), Point(0, 20)]),
         floorNumber: 0,
         rooms: [
           testRoom
@@ -44,22 +32,19 @@ class FloorTests {
           testmark
         ],
         beacons: [
-          MockBeacon('00:00:00:01', 'test1', Coordinate(5, 5)),
-          MockBeacon('00:00:00:02', 'test2', Coordinate(10, 10)),
-          MockBeacon('00:00:00:03', 'test3', Coordinate(15, 15))
+          MockBeacon('00:00:00:01', 'test1', Point(5, 5)),
+          MockBeacon('00:00:00:02', 'test2', Point(10, 10)),
+          MockBeacon('00:00:00:03', 'test3', Point(15, 15))
         ]);
     group("*Floor Constructor Unit Tests*", () {
       test("Floor constructor", () {
         //Arrange
-        PolygonalArea expectedArea = PolygonalArea(
-            points: [Coordinate(0, 0), Coordinate(30, 0), Coordinate(15, 30)]);
+        PolygonalArea expectedArea =
+            PolygonalArea(points: [Point(0, 0), Point(30, 0), Point(15, 30)]);
 
         Floor retrieved = Floor(
-            area: PolygonalArea(points: [
-              Coordinate(0, 0),
-              Coordinate(30, 0),
-              Coordinate(15, 30)
-            ]),
+            area: PolygonalArea(
+                points: [Point(0, 0), Point(30, 0), Point(15, 30)]),
             floorNumber: 0,
             beacons: [],
             rooms: []);
@@ -73,21 +58,18 @@ class FloorTests {
       test("Floor assertion error beacons", () {
         expect(
             () => Floor(
-                    area: PolygonalArea(points: [
-                      Coordinate(0, 0),
-                      Coordinate(30, 0),
-                      Coordinate(15, 30)
-                    ]),
+                    area: PolygonalArea(
+                        points: [Point(0, 0), Point(30, 0), Point(15, 30)]),
                     floorNumber: 0,
                     beacons: [],
                     rooms: [
                       Room(
                           key: 'TestRoom',
                           area: PolygonalArea(points: [
-                            Coordinate(7, 7),
-                            Coordinate(7, 6),
-                            Coordinate(100, 100),
-                            Coordinate(10, 9)
+                            Point(7, 7),
+                            Point(7, 6),
+                            Point(100, 100),
+                            Point(10, 9)
                           ]))
                     ]),
             throwsAssertionError);
@@ -95,14 +77,11 @@ class FloorTests {
       test("Floor assertion error rooms", () {
         expect(
             () => Floor(
-                    area: PolygonalArea(points: [
-                      Coordinate(0, 0),
-                      Coordinate(30, 0),
-                      Coordinate(15, 30)
-                    ]),
+                    area: PolygonalArea(
+                        points: [Point(0, 0), Point(30, 0), Point(15, 30)]),
                     floorNumber: 0,
                     beacons: [
-                      MockBeacon('00:00:00:01', 'test1', Coordinate(100, 100)),
+                      MockBeacon('00:00:00:01', 'test1', Point(100, 100)),
                     ],
                     rooms: []),
             throwsAssertionError);
@@ -110,11 +89,8 @@ class FloorTests {
       test("Floor assertion error landmarks", () {
         expect(
             () => Floor(
-                    area: PolygonalArea(points: [
-                      Coordinate(0, 0),
-                      Coordinate(30, 0),
-                      Coordinate(15, 30)
-                    ]),
+                    area: PolygonalArea(
+                        points: [Point(0, 0), Point(30, 0), Point(15, 30)]),
                     floorNumber: 0,
                     beacons: [],
                     rooms: [],
@@ -122,10 +98,10 @@ class FloorTests {
                       Landmark(
                           key: 'TestLandmark',
                           area: PolygonalArea(points: [
-                            Coordinate(1, 1),
-                            Coordinate(2, 1),
-                            Coordinate(3, 3),
-                            Coordinate(100, 100)
+                            Point(1, 1),
+                            Point(2, 1),
+                            Point(3, 3),
+                            Point(100, 100)
                           ]))
                     ]),
             throwsAssertionError);
@@ -203,7 +179,7 @@ class FloorTests {
       test("toString", () {
         //Arrange
         String expectedValue =
-            'Floor(area: PolygonalArea(points: [Coordinate(x: 0.0, y: 0.0, z: 0.0), Coordinate(x: 15.0, y: 0.0, z: 0.0), Coordinate(x: 20.0, y: 20.0, z: 0.0), Coordinate(x: 0.0, y: 20.0, z: 0.0)]), floorNumber: 0, beacons: [Beacon(id: 00:00:00:01, name: test1, position: Coordinate(x: 5.0, y: 5.0, z: 0.0), rssi: -Infinity, distanceToUser: Infinity), Beacon(id: 00:00:00:02, name: test2, position: Coordinate(x: 10.0, y: 10.0, z: 0.0), rssi: -Infinity, distanceToUser: Infinity), Beacon(id: 00:00:00:03, name: test3, position: Coordinate(x: 15.0, y: 15.0, z: 0.0), rssi: -Infinity, distanceToUser: Infinity)], rooms: [Room:(key: TestRoom, area: PolygonalArea(points: [Coordinate(x: 7.0, y: 7.0, z: 0.0), Coordinate(x: 7.0, y: 6.0, z: 0.0), Coordinate(x: 10.0, y: 10.0, z: 0.0), Coordinate(x: 10.0, y: 9.0, z: 0.0)]))], landmarks: [Landmark:(key: TestLandmark, area: PolygonalArea(points: [Coordinate(x: 1.0, y: 1.0, z: 0.0), Coordinate(x: 2.0, y: 1.0, z: 0.0), Coordinate(x: 3.0, y: 3.0, z: 0.0), Coordinate(x: 4.0, y: 3.0, z: 0.0)]))])';
+            'Floor(area: PolygonalArea(points: [Point(x: 0.0, y: 0.0, z: 0.0), Point(x: 15.0, y: 0.0, z: 0.0), Point(x: 20.0, y: 20.0, z: 0.0), Point(x: 0.0, y: 20.0, z: 0.0)]), floorNumber: 0, beacons: [Beacon(id: 00:00:00:01, name: test1, position: Point(x: 5.0, y: 5.0, z: 0.0), rssi: -Infinity, distanceToUser: Infinity), Beacon(id: 00:00:00:02, name: test2, position: Point(x: 10.0, y: 10.0, z: 0.0), rssi: -Infinity, distanceToUser: Infinity), Beacon(id: 00:00:00:03, name: test3, position: Point(x: 15.0, y: 15.0, z: 0.0), rssi: -Infinity, distanceToUser: Infinity)], rooms: [Room:(key: TestRoom, area: PolygonalArea(points: [Point(x: 7.0, y: 7.0, z: 0.0), Point(x: 7.0, y: 6.0, z: 0.0), Point(x: 10.0, y: 10.0, z: 0.0), Point(x: 10.0, y: 9.0, z: 0.0)]))], landmarks: [Landmark:(key: TestLandmark, area: PolygonalArea(points: [Point(x: 1.0, y: 1.0, z: 0.0), Point(x: 2.0, y: 1.0, z: 0.0), Point(x: 3.0, y: 3.0, z: 0.0), Point(x: 4.0, y: 3.0, z: 0.0)]))])';
 
         String retrieved = testFloor.toString();
 

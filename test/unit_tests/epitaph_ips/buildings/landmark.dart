@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/landmark.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/polygonal_area.dart';
 
@@ -10,32 +10,20 @@ class LandmarkTests {
 
     Landmark testmark = Landmark(
         key: 'TestLandmark',
-        area: PolygonalArea(points: [
-          Coordinate(1, 1),
-          Coordinate(2, 1),
-          Coordinate(3, 3),
-          Coordinate(4, 3)
-        ]));
+        area: PolygonalArea(
+            points: [Point(1, 1), Point(2, 1), Point(3, 3), Point(4, 3)]));
 
     group("*Landmark Constructor Unit Tests*", () {
       test("Landmark constructor", () {
         //Arrange
         String expectedKey = 'TestLandmark';
-        PolygonalArea expectedArea = PolygonalArea(points: [
-          Coordinate(1, 1),
-          Coordinate(2, 1),
-          Coordinate(3, 3),
-          Coordinate(4, 3)
-        ]);
+        PolygonalArea expectedArea = PolygonalArea(
+            points: [Point(1, 1), Point(2, 1), Point(3, 3), Point(4, 3)]);
 
         Landmark testmark = Landmark(
             key: 'TestLandmark',
-            area: PolygonalArea(points: [
-              Coordinate(1, 1),
-              Coordinate(2, 1),
-              Coordinate(3, 3),
-              Coordinate(4, 3)
-            ]));
+            area: PolygonalArea(
+                points: [Point(1, 1), Point(2, 1), Point(3, 3), Point(4, 3)]));
 
         expect(testmark.key, expectedKey);
         expect(testmark.area.toString(), expectedArea.toString());
@@ -71,7 +59,7 @@ class LandmarkTests {
         test("toString", () {
           //Arrange
           String expectedValue =
-              'Landmark:(key: TestLandmark, area: PolygonalArea(points: [Coordinate(x: 1.0, y: 1.0, z: 0.0), Coordinate(x: 2.0, y: 1.0, z: 0.0), Coordinate(x: 3.0, y: 3.0, z: 0.0), Coordinate(x: 4.0, y: 3.0, z: 0.0)]))';
+              'Landmark:(key: TestLandmark, area: PolygonalArea(points: [Point(x: 1.0, y: 1.0, z: 0.0), Point(x: 2.0, y: 1.0, z: 0.0), Point(x: 3.0, y: 3.0, z: 0.0), Point(x: 4.0, y: 3.0, z: 0.0)]))';
 
           String retrieved = testmark.toString();
 

@@ -1,9 +1,9 @@
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/beacon.dart';
 
 /// A class representing BLE beacons in the real world.
 class RealBeacon extends Beacon {
-  RealBeacon(String id, String name, Coordinate position,
+  RealBeacon(String id, String name, Point position,
       {BeaconsConfiguration configuration = const BeaconsConfiguration()})
       : super(
             id: id,
@@ -15,7 +15,7 @@ class RealBeacon extends Beacon {
       : super(
             id: json['id'],
             name: json['name'],
-            position: Coordinate.fromJson(json['position']));
+            position: Point.fromJson(json['position']));
 
   @override
   Beacon copy() => this;

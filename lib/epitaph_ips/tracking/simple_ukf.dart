@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/tracking/filter.dart';
 import 'package:epitaph_ips/epitaph_ips/tracking/sigma_point_function.dart';
 import 'package:epitaph_ips/epitaph_ips/tracking/matrix_helpers.dart';
@@ -193,18 +193,18 @@ class SimpleUKF extends Filter {
   }
 
   @override
-  void configFilter(Coordinate initialPosition) {
+  void configFilter(Point initialPosition) {
     x = Matrix.fromList([
       [initialPosition.x, 0, initialPosition.y, 0]
     ]);
   }
 
   @override
-  Coordinate filter(Coordinate newPosition,
+  Point filter(Point newPosition,
       {List? predictArgs, Matrix? z, List? updateArgs}) {
     predict(args: predictArgs);
     update(Matrix.row(newPosition.to2DList()), args: updateArgs);
-    return Coordinate(x.elementAt(0).first, x.elementAt(0).toList()[2]);
+    return Point(x.elementAt(0).first, x.elementAt(0).toList()[2]);
   }
 
   @override

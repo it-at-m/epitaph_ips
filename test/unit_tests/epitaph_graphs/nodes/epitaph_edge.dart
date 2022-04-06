@@ -2,12 +2,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:epitaph_ips/epitaph_graphs/nodes/epitaph_edge.dart';
 import 'package:epitaph_ips/epitaph_graphs/nodes/epitaph_vertex.dart';
 import 'package:epitaph_ips/epitaph_graphs/nodes/simple_vertex.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:ml_linalg/vector.dart';
 
 class EpitaphEdgeTests {
-  final EpitaphVertex testVertex = EpitaphVertex('test', Coordinate(0, 0));
-  final EpitaphVertex testVertex2 = EpitaphVertex('test2', Coordinate(1, 1));
+  final EpitaphVertex testVertex = EpitaphVertex('test', Point(0, 0));
+  final EpitaphVertex testVertex2 = EpitaphVertex('test2', Point(1, 1));
   late final EpitaphEdge testEdge = EpitaphEdge(testVertex, testVertex2, 99,
       EpitaphEdgeAttributes(isFloorChange: true), 180);
 
@@ -116,8 +116,8 @@ class EpitaphEdgeTests {
       test("EpitaphEdge equalToEdge test", () {
         //Arrange
         bool expectedValue = true;
-        EpitaphVertex testVertex = EpitaphVertex('test', Coordinate(0, 0));
-        EpitaphVertex testVertex2 = EpitaphVertex('test2', Coordinate(0, 0));
+        EpitaphVertex testVertex = EpitaphVertex('test', Point(0, 0));
+        EpitaphVertex testVertex2 = EpitaphVertex('test2', Point(0, 0));
         EpitaphEdge expEdge = EpitaphEdge(testVertex, testVertex2, 99,
             EpitaphEdgeAttributes(isFloorChange: true), 180);
 
@@ -130,8 +130,8 @@ class EpitaphEdgeTests {
       test("EpitaphEdge equalToEdge test, inverted directionality", () {
         //Arrange
         bool expectedValue = false;
-        EpitaphVertex testVertex2 = EpitaphVertex('test2', Coordinate(0, 0));
-        EpitaphVertex testVertex = EpitaphVertex('test', Coordinate(0, 0));
+        EpitaphVertex testVertex2 = EpitaphVertex('test2', Point(0, 0));
+        EpitaphVertex testVertex = EpitaphVertex('test', Point(0, 0));
         EpitaphEdge expEdge = EpitaphEdge(testVertex2, testVertex, 99,
             EpitaphEdgeAttributes(isFloorChange: true), 180);
 
@@ -145,8 +145,8 @@ class EpitaphEdgeTests {
         //Arrange
         bool expectedValue = false;
         double weightA = 9.9;
-        EpitaphVertex testVertex = EpitaphVertex('tst', Coordinate(0, 0));
-        EpitaphVertex testVertex2 = EpitaphVertex('est2', Coordinate(1, 1));
+        EpitaphVertex testVertex = EpitaphVertex('tst', Point(0, 0));
+        EpitaphVertex testVertex2 = EpitaphVertex('est2', Point(1, 1));
         EpitaphEdge expEdge = EpitaphEdge(testVertex, testVertex2, weightA,
             EpitaphEdgeAttributes(isFloorChange: true), 180);
 
@@ -161,15 +161,15 @@ class EpitaphEdgeTests {
         double expectedValue = 0.7071067811865476;
 
         //expected
-        expect(testEdge.shortestDistance(Coordinate(.5, -0.5).toVector()),
+        expect(testEdge.shortestDistance(Point(.5, -0.5).toVector()),
             expectedValue);
       });
       test('vectorFromPosition test', () {
         //Arrange
-        Vector expectedValue = Coordinate(-0.5, 0.5).toVector();
+        Vector expectedValue = Point(-0.5, 0.5).toVector();
 
         //expected
-        expect(testEdge.vectorFromPosition(Coordinate(.5, -0.5).toVector()),
+        expect(testEdge.vectorFromPosition(Point(.5, -0.5).toVector()),
             expectedValue);
       });
       test('shadowScale test', () {
@@ -177,7 +177,7 @@ class EpitaphEdgeTests {
         double expectedValue = 0.000009499030348695355;
 
         //expected
-        expect(testEdge.shadowScale(Coordinate(-0.053847, 0.146947).toVector()),
+        expect(testEdge.shadowScale(Point(-0.053847, 0.146947).toVector()),
             expectedValue);
       });
       test('headingTowardsTarget test true', () {
@@ -226,11 +226,11 @@ class EpitaphEdgeTests {
         Map<String, dynamic> expectedValue = {
           'source': {
             'id': 'test',
-            'coordinate': {'x': 0.0, 'y': 0.0, 'z': 0.0}
+            'Point': {'x': 0.0, 'y': 0.0, 'z': 0.0}
           },
           'target': {
             'id': 'test2',
-            'coordinate': {'x': 1.0, 'y': 1.0, 'z': 0.0}
+            'Point': {'x': 1.0, 'y': 1.0, 'z': 0.0}
           },
           'weight': 99.0,
           'cardinalDir': 180.0,

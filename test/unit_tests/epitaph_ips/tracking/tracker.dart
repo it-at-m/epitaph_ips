@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/beacon.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/mock_beacon.dart';
 import 'package:epitaph_ips/epitaph_ips/tracking/calculator.dart';
@@ -19,17 +19,17 @@ class TrackerTests {
 
         //Act
         tracker.initiateFirstScan([
-          MockBeacon('0', '0', Coordinate(1, 1, 1)),
-          MockBeacon('1', '1', Coordinate(1, 1, 1)),
-          MockBeacon('2', '2', Coordinate(7, 7, 7)),
+          MockBeacon('0', '0', Point(1, 1, 1)),
+          MockBeacon('1', '1', Point(1, 1, 1)),
+          MockBeacon('2', '2', Point(7, 7, 7)),
         ]);
 
         for (int i = 0; i < 4; i++) {
           double j = i.toDouble();
           tracker.initiateTrackingCycle([
-            MockBeacon('0', '0', Coordinate(j, j, j)),
-            MockBeacon('1', '1', Coordinate(j + 1, j + 1, j + 1)),
-            MockBeacon('2', '2', Coordinate(j + 2, j + 2, j + 2)),
+            MockBeacon('0', '0', Point(j, j, j)),
+            MockBeacon('1', '1', Point(j + 1, j + 1, j + 1)),
+            MockBeacon('2', '2', Point(j + 2, j + 2, j + 2)),
           ]);
         }
 
@@ -42,15 +42,15 @@ class TrackerTests {
       test('get calculatedPosition', () {
         //Arrange
         Tracker tracker = Tracker(_MockCalculator(), _MockFilter());
-        Coordinate expected = Coordinate(3, 3, 3);
+        Point expected = Point(3, 3, 3);
 
         //Act
         tracker.initiateFirstScan([
-          MockBeacon('0', '0', Coordinate(1, 1, 1)),
-          MockBeacon('1', '1', Coordinate(1, 1, 1)),
-          MockBeacon('2', '2', Coordinate(7, 7, 7)),
+          MockBeacon('0', '0', Point(1, 1, 1)),
+          MockBeacon('1', '1', Point(1, 1, 1)),
+          MockBeacon('2', '2', Point(7, 7, 7)),
         ]);
-        Coordinate received = tracker.calculatedPosition;
+        Point received = tracker.calculatedPosition;
 
         //Expected
         expect(received, expected);
@@ -59,25 +59,25 @@ class TrackerTests {
       test('get filteredPosition', () {
         //Arrange
         Tracker tracker = Tracker(_MockCalculator(), _MockFilter());
-        Coordinate expected = Coordinate(3.5, 3.5, 3.5);
+        Point expected = Point(3.5, 3.5, 3.5);
 
         //Act
         tracker.initiateFirstScan([
-          MockBeacon('0', '0', Coordinate(1, 1, 1)),
-          MockBeacon('1', '1', Coordinate(1, 1, 1)),
-          MockBeacon('2', '2', Coordinate(7, 7, 7)),
+          MockBeacon('0', '0', Point(1, 1, 1)),
+          MockBeacon('1', '1', Point(1, 1, 1)),
+          MockBeacon('2', '2', Point(7, 7, 7)),
         ]);
 
         for (int i = 0; i < 4; i++) {
           double j = i.toDouble();
           tracker.initiateTrackingCycle([
-            MockBeacon('0', '0', Coordinate(j, j, j)),
-            MockBeacon('1', '1', Coordinate(j + 1, j + 1, j + 1)),
-            MockBeacon('2', '2', Coordinate(j + 2, j + 2, j + 2)),
+            MockBeacon('0', '0', Point(j, j, j)),
+            MockBeacon('1', '1', Point(j + 1, j + 1, j + 1)),
+            MockBeacon('2', '2', Point(j + 2, j + 2, j + 2)),
           ]);
         }
 
-        Coordinate received = tracker.filteredPosition;
+        Point received = tracker.filteredPosition;
 
         //Expected
         expect(received, expected);
@@ -86,25 +86,25 @@ class TrackerTests {
       test('get finalPosition', () {
         //Arrange
         Tracker tracker = Tracker(_MockCalculator(), _MockFilter());
-        Coordinate expected = Coordinate(3.0, 3.0, 3.0);
+        Point expected = Point(3.0, 3.0, 3.0);
 
         //Act
         tracker.initiateFirstScan([
-          MockBeacon('0', '0', Coordinate(1, 1, 1)),
-          MockBeacon('1', '1', Coordinate(1, 1, 1)),
-          MockBeacon('2', '2', Coordinate(7, 7, 7)),
+          MockBeacon('0', '0', Point(1, 1, 1)),
+          MockBeacon('1', '1', Point(1, 1, 1)),
+          MockBeacon('2', '2', Point(7, 7, 7)),
         ]);
 
         for (int i = 0; i < 4; i++) {
           double j = i.toDouble();
           tracker.initiateTrackingCycle([
-            MockBeacon('0', '0', Coordinate(j, j, j)),
-            MockBeacon('1', '1', Coordinate(j + 1, j + 1, j + 1)),
-            MockBeacon('2', '2', Coordinate(j + 2, j + 2, j + 2)),
+            MockBeacon('0', '0', Point(j, j, j)),
+            MockBeacon('1', '1', Point(j + 1, j + 1, j + 1)),
+            MockBeacon('2', '2', Point(j + 2, j + 2, j + 2)),
           ]);
         }
 
-        Coordinate received = tracker.finalPosition;
+        Point received = tracker.finalPosition;
 
         //Expected
         expect(received, expected);
@@ -115,21 +115,21 @@ class TrackerTests {
       test('reset', () {
         //Arrange
         Tracker tracker = Tracker(_MockCalculator(), _MockFilter());
-        Coordinate expectedCoordinate = Coordinate.origin();
+        Point expectedPoint = Point.origin();
 
         //Act
         tracker.initiateFirstScan([
-          MockBeacon('0', '0', Coordinate(1, 1, 1)),
-          MockBeacon('1', '1', Coordinate(1, 1, 1)),
-          MockBeacon('2', '2', Coordinate(7, 7, 7)),
+          MockBeacon('0', '0', Point(1, 1, 1)),
+          MockBeacon('1', '1', Point(1, 1, 1)),
+          MockBeacon('2', '2', Point(7, 7, 7)),
         ]);
         tracker.reset();
 
         //Expected
         expect(() {
-          assert(tracker.calculatedPosition == expectedCoordinate);
-          assert(tracker.filteredPosition == expectedCoordinate);
-          assert(tracker.finalPosition == expectedCoordinate);
+          assert(tracker.calculatedPosition == expectedPoint);
+          assert(tracker.filteredPosition == expectedPoint);
+          assert(tracker.finalPosition == expectedPoint);
           assert(tracker.accuracy == 2.0);
         }, returnsNormally);
       });
@@ -137,24 +137,24 @@ class TrackerTests {
       test('initiateTrackingCycle', () {
         //Arrange
         Tracker tracker = Tracker(_MockCalculator(), _MockFilter());
-        Coordinate expectedCalculated = Coordinate(4.0, 4.0, 4.0);
-        Coordinate expectedFiltered = Coordinate(3.5, 3.5, 3.5);
-        Coordinate expectedFinal = Coordinate(3.0, 3.0, 3.0);
+        Point expectedCalculated = Point(4.0, 4.0, 4.0);
+        Point expectedFiltered = Point(3.5, 3.5, 3.5);
+        Point expectedFinal = Point(3.0, 3.0, 3.0);
         double expectedAccuracy = 2.0;
 
         //Act
         tracker.initiateFirstScan([
-          MockBeacon('0', '0', Coordinate(1, 1, 1)),
-          MockBeacon('1', '1', Coordinate(1, 1, 1)),
-          MockBeacon('2', '2', Coordinate(7, 7, 7)),
+          MockBeacon('0', '0', Point(1, 1, 1)),
+          MockBeacon('1', '1', Point(1, 1, 1)),
+          MockBeacon('2', '2', Point(7, 7, 7)),
         ]);
 
         for (int i = 0; i < 4; i++) {
           double j = i.toDouble();
           tracker.initiateTrackingCycle([
-            MockBeacon('0', '0', Coordinate(j, j, j)),
-            MockBeacon('1', '1', Coordinate(j + 1, j + 1, j + 1)),
-            MockBeacon('2', '2', Coordinate(j + 2, j + 2, j + 2)),
+            MockBeacon('0', '0', Point(j, j, j)),
+            MockBeacon('1', '1', Point(j + 1, j + 1, j + 1)),
+            MockBeacon('2', '2', Point(j + 2, j + 2, j + 2)),
           ]);
         }
 
@@ -170,20 +170,20 @@ class TrackerTests {
       test('initiateFirstScan', () {
         //Arrange
         Tracker tracker = Tracker(_MockCalculator(), _MockFilter());
-        Coordinate expectedCoordinate = Coordinate(3.0, 3.0, 3.0);
+        Point expectedPoint = Point(3.0, 3.0, 3.0);
 
         //Act
         tracker.initiateFirstScan([
-          MockBeacon('0', '0', Coordinate(1, 1, 1)),
-          MockBeacon('1', '1', Coordinate(1, 1, 1)),
-          MockBeacon('2', '2', Coordinate(7, 7, 7)),
+          MockBeacon('0', '0', Point(1, 1, 1)),
+          MockBeacon('1', '1', Point(1, 1, 1)),
+          MockBeacon('2', '2', Point(7, 7, 7)),
         ]);
 
         //Expected
         expect(() {
-          assert(tracker.calculatedPosition == expectedCoordinate);
-          assert(tracker.filteredPosition == expectedCoordinate);
-          assert(tracker.finalPosition == expectedCoordinate);
+          assert(tracker.calculatedPosition == expectedPoint);
+          assert(tracker.filteredPosition == expectedPoint);
+          assert(tracker.finalPosition == expectedPoint);
           assert(tracker.accuracy == 2.0);
         }, returnsNormally);
       });
@@ -191,13 +191,13 @@ class TrackerTests {
       test('calculatePosition', () {
         //Arrange
         Tracker tracker = Tracker(_MockCalculator(), _MockFilter());
-        Coordinate expected = Coordinate(3.0, 3.0, 3.0);
+        Point expected = Point(3.0, 3.0, 3.0);
 
         //Act
-        Coordinate received = tracker.calculatePosition([
-          MockBeacon('0', '0', Coordinate(1, 1, 1)),
-          MockBeacon('1', '1', Coordinate(1, 1, 1)),
-          MockBeacon('2', '2', Coordinate(7, 7, 7)),
+        Point received = tracker.calculatePosition([
+          MockBeacon('0', '0', Point(1, 1, 1)),
+          MockBeacon('1', '1', Point(1, 1, 1)),
+          MockBeacon('2', '2', Point(7, 7, 7)),
         ]);
 
         //Expected
@@ -207,15 +207,15 @@ class TrackerTests {
       test('filterPosition', () {
         //Arrange
         Tracker tracker = Tracker(_MockCalculator(), _MockFilter());
-        Coordinate expected = Coordinate(2.0, 1.5, 3.5);
+        Point expected = Point(2.0, 1.5, 3.5);
 
         //Act
         tracker.initiateFirstScan([
-          MockBeacon('0', '0', Coordinate(1, 1, 1)),
-          MockBeacon('1', '1', Coordinate(1, 1, 1)),
-          MockBeacon('2', '2', Coordinate(7, 7, 7)),
+          MockBeacon('0', '0', Point(1, 1, 1)),
+          MockBeacon('1', '1', Point(1, 1, 1)),
+          MockBeacon('2', '2', Point(7, 7, 7)),
         ]);
-        Coordinate received = tracker.filterPosition(Coordinate(1, 0, 4));
+        Point received = tracker.filterPosition(Point(1, 0, 4));
 
         //Expected
         expect(received, expected);
@@ -226,25 +226,25 @@ class TrackerTests {
 
 class _MockCalculator implements Calculator {
   @override
-  Coordinate calculate(List<Beacon> beacons) {
+  Point calculate(List<Beacon> beacons) {
     return beacons.fold(
-            Coordinate.origin(),
+            Point.origin(),
             (previousValue, element) =>
-                (previousValue as Coordinate) + element.position) /
+                (previousValue as Point) + element.position) /
         beacons.length;
   }
 }
 
 class _MockFilter extends Filter {
-  Coordinate current = Coordinate(0, 0);
-  List<Coordinate> values = [];
+  Point current = Point(0, 0);
+  List<Point> values = [];
 
   @override
-  Coordinate filter(Coordinate newPosition) {
+  Point filter(Point newPosition) {
     if (values.isEmpty) {
       configFilter(newPosition);
     } else {
-      Coordinate sum =
+      Point sum =
           (values.reduce((value, element) => value + element)) / values.length;
       current = (sum + newPosition) / 2;
     }
@@ -253,14 +253,14 @@ class _MockFilter extends Filter {
   }
 
   @override
-  void configFilter(Coordinate initialPosition) {
+  void configFilter(Point initialPosition) {
     current = initialPosition.copy();
     values.add(initialPosition.copy());
   }
 
   @override
   void reset() {
-    current = Coordinate(0, 0);
+    current = Point(0, 0);
     values = [];
   }
 }

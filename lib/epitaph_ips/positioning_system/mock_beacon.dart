@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/beacon.dart';
 
 /// A beacon simulating how beacons would work in the real world. Can be used for
@@ -7,7 +7,7 @@ import 'package:epitaph_ips/epitaph_ips/positioning_system/beacon.dart';
 /// in relation to its position and a given position. The returned value is a randomized
 /// value trying to emulate real BLE beacons.
 class MockBeacon extends Beacon {
-  MockBeacon(String id, String name, Coordinate position,
+  MockBeacon(String id, String name, Point position,
       {BeaconsConfiguration configuration = const BeaconsConfiguration()})
       : super(
             id: id,
@@ -19,14 +19,14 @@ class MockBeacon extends Beacon {
       : super(
             id: json['id'],
             name: json['name'],
-            position: Coordinate.fromJson(json['position']));
+            position: Point.fromJson(json['position']));
 
   /// Determines a random value with noise that is sent for this advertisement cycle. Updates RSSI with [rssiUpdate] of the super class automatically.
-  /// [coordinateForAd] is a assumed position of the devices that the end user is using.
+  /// [PointForAd] is a assumed position of the devices that the end user is using.
   /// The ad is calculated with this position in mind.
-  void sendRssiAdvertisement(Coordinate coordinateForAd) {
-    double calcRssi = _metersToRSSI(
-        position.toVector().distanceTo(coordinateForAd.toVector()));
+  void sendRssiAdvertisement(Point pointForAd) {
+    double calcRssi =
+        _metersToRSSI(position.toVector().distanceTo(pointForAd.toVector()));
     int deviation = _rssiDeviation(calcRssi.toInt());
     int finalRssi = calcRssi.toInt() - deviation;
     super.rssiUpdate(finalRssi);

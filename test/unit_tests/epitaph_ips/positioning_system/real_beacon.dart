@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/real_beacon.dart';
 
 class RealBeaconTests {
@@ -8,7 +8,7 @@ class RealBeaconTests {
     tearDownAll(() {});
 
     RealBeacon testBeacon = RealBeacon(
-        'E4:E1:12:9A:49:EB', 'blukii BXXXXX E4E1129B0B88', Coordinate(1, 1));
+        'E4:E1:12:9A:49:EB', 'blukii BXXXXX E4E1129B0B88', Point(1, 1));
 
     group("*RealBeacon constructor Unit Tests*", () {
       test("id cannot be empty", () {
@@ -16,9 +16,7 @@ class RealBeaconTests {
         Matcher expectedValue = throwsAssertionError;
 
         //Act and expect
-        expect(
-            () =>
-                RealBeacon("", 'blukii BXXXXX E4E1129B0B88', Coordinate(1, 1)),
+        expect(() => RealBeacon("", 'blukii BXXXXX E4E1129B0B88', Point(1, 1)),
             expectedValue);
       });
       test("name cannot be empty", () {
@@ -26,7 +24,7 @@ class RealBeaconTests {
         Matcher expectedValue = throwsAssertionError;
 
         //Act and expect
-        expect(() => RealBeacon('E4:E1:12:9A:49:EB', '', Coordinate(1, 1)),
+        expect(() => RealBeacon('E4:E1:12:9A:49:EB', '', Point(1, 1)),
             expectedValue);
       });
       test("fromJson Constructor", () {
@@ -50,10 +48,10 @@ class RealBeaconTests {
     group("*RealBeacon getter Unit Tests*", () {
       test("get location", () {
         //Arrange
-        Coordinate expectedValue = Coordinate(1.0, 1.0);
+        Point expectedValue = Point(1.0, 1.0);
 
         //Act
-        Coordinate retrieved = testBeacon.position;
+        Point retrieved = testBeacon.position;
 
         //expect
         expect(retrieved.x, expectedValue.x);
@@ -154,7 +152,7 @@ class RealBeaconTests {
       test("toString", () {
         //Arrange
         String expectedValue =
-            'Beacon(id: E4:E1:12:9A:49:EB, name: blukii BXXXXX E4E1129B0B88, position: Coordinate(x: 1.0, y: 1.0, z: 0.0), rssi: -23.0, distanceToUser: 0.0199526231496888)';
+            'Beacon(id: E4:E1:12:9A:49:EB, name: blukii BXXXXX E4E1129B0B88, position: Point(x: 1.0, y: 1.0, z: 0.0), rssi: -23.0, distanceToUser: 0.0199526231496888)';
 
         //Act
         testBeacon.rssiUpdate(-23);
