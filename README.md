@@ -45,7 +45,82 @@ This library has been build with:
 
 ## Usage
 
-<i>Will be updated</i>
+<i>In Progress</i>
+
+### Tracking
+The tracking system consists of multiple modules that can theoretically be used individually as well.
+
+#### Module descriptions
+- **Calculator** - module for calculating a raw position through the use of read values, i.e. RSSI-values from BLE beacons
+- **Filter** - module for smoothening out raw positions. This can be particularly useful when values tend to be noisy
+- **Tracker** - module that uses Calculator and Filter to contininuosly track the user's position
+- **Mapper** (inherits from Tracker) - module for tracking a user's position on a map (with correlating graph, nodes and edges)
+
+#### Calculator (abstract)
+- consists of `Coordinate calculate(List<Beacon>)`
+- reads certain values from said list and calculates a position using those values
+- Epitaph IPS provides an implemented (nonlinear trilateration) Calculator, which uses a simple Levenberg-Marquardt algorithm
+
+#### Filter (abstract)
+- consists of `Coordinate filter(Coordinate)`, `void configFilter(Coordinate)`, `void reset()`
+- an implemented filter should continuously take in a coordinate, process it and save the result for upcoming processing
+- Epitaph IPS provieds an implemented filter in the form of simple unscented Kalmen filter
+
+#### Tracker
+- first calculates a raw position (using a Calculator), then filters the result (using a Filter)
+- the resulting position can be processed further, if need be
+- while Tracker consists of multiple methods, `void initiateTrackingCycle(List<Beacon>)` encompasses all relevant methods
+
+#### Mapper
+- inherits from Tracker
+- additionally to Tracker functionality, Mapper takes the resulting position after calculation and filtering and tries to make more sense of it in context of a a map, with correlating graphs, nodes and edges
+- consists of many additional methods, the most important one being an overrided `void initiateTrackingCycle(List<Beacon>)`
+
+#### Example
+```javascript
+//Initialize calculator
+Calculator calculator = LMA();
+
+//Very basic models for unscented Kalman filter
+Matrix fxUserLocation(Matrix x, double dt, List? args) {
+  List<double> list = [
+    x[1][0] * dt + x[0][0],
+    x[1][0],
+    x[3][0] * dt + x[2][0],
+    x[3][0]
+  ];
+  return Matrix.fromFlattenedList(list, 4, 1);
+}
+
+Matrix hxUserLocation(Matrix x, List? args) {
+  return Matrix.row([x[0][0], x[0][2]]);
+}
+
+//Sigma point function for unscented Kalman filter
+SigmaPointFunction sigmaPoints = MerweFunction(4, 0.1, 2.0, 1.0);
+
+//Initialize filter
+Filter filter = SimpleUKF(4, 2, 0.3, hxUserLocation, fxUserLocation, sigmaPoints, sigmaPoints.numberOfSigmaPoints());
+
+//Initialize tracker
+Tracker tracker = Tracker(calculator, filter);
+
+//Engage tracker by calling this method with a list with at least 3 Beacon instances
+tracker.initiateTrackingCycle(...);
+
+//The result of the tracker can be called as follows
+tracker.finalPosition;
+
+//Raw calculated position and filtered position can be called as well
+tracker.calculatedPosition;
+tracker.filteredPosition;
+
+//Filter can be used independently from tracker; provide Coordinate instance for filter method
+filter.filter(...);
+
+//Calculator can be used independently from tracker; provide a list with at least 3 Beacon instances
+calculator.calculate(...);
+```
 
 ## Documentation
 <i>Will be updated</i>
