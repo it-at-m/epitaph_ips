@@ -6,7 +6,7 @@
 <br />
 <div align="center">
   <a href="#">
-    <img src="/images/logo.png" alt="Logo" height="200">
+    <img src="/images/itm_logo.png" alt="Logo" height="200">
   </a>
 
 <h3 align="center">Epitaph IPS</h3>
@@ -22,9 +22,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Epitaph has a wide array of utilities to position your user in a building. The project is intended to be used to only calculate the position on the user's device. 
+Epitaph has a wide array of utilities to position your user in a building. The project is intended to be used to only calculate the position on the user's device.
 It has been written in Dart using the Flutter framework. Bluetooth Low Energy (BLE) beacons are used to make the calculations possible.
-Received Signal Strength Indication (RSSI) values are used to calculate the user’s location in the real world. 
+Received Signal Strength Indication (RSSI) values are used to calculate the user’s location in the real world.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -34,12 +34,6 @@ Received Signal Strength Indication (RSSI) values are used to calculate the user
 This library has been build with:
  - [Flutter](https://flutter.dev/)
 
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-## Installation
-
-<i>Will be updated</i>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -123,7 +117,7 @@ calculator.calculate(...);
 ```
 
 ## Documentation
-<i>Will be updated</i>
+You can find documentation on Epitaph IPS [here](https://pub.dev/documentation/epitaph_ips/latest/).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
