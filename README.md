@@ -13,9 +13,9 @@
 
   <p align="center">
     <i>Library with utilities to calculate a users position written in Dart</i>
-    <br /><a href="#">Report Bug</a>
+    <br /><a href="https://github.com/it-at-m/epitaph_ips/issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
     ·
-    <a href="#">Request Feature</a>
+    <a href="https://github.com/it-at-m/epitaph_ips/issues/new?assignees=&labels=&template=feature_request.md&title=">Request Feature</a>
   </p>
 </div>
 
