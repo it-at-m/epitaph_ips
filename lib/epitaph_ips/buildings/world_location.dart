@@ -20,7 +20,7 @@ class WorldLocation {
   /// Returns a human readable name.
   String toFullName() {
     if (extra != null) {
-      return '$streetName $streetNumber$extra';
+      return '$streetName $streetNumber $extra';
     } else {
       return '$streetName $streetNumber';
     }

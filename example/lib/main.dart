@@ -1,7 +1,10 @@
 import 'package:epitaph_ips/epitaph_graphs/graphs/graph.dart';
 import 'package:epitaph_ips/epitaph_ips/tracking/tracker.dart';
+import 'package:example/building_view.dart';
 import 'package:flutter/material.dart';
 import 'building_form.dart';
+import 'myWidgets.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +13,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,12 +20,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(),
       initialRoute: '/',
       routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => const MyHomePage(title: 'Epitaph Demo Home Page'),
-        // When navigating to the "/second" route, build the SecondScreen widget.
         '/Create Building': (context) => const BuildingForm(),
         '/Create Graph': (context) => const BuildingForm(),
-        '/Tracking': (context) => const BuildingForm(),
+        '/Tracking': (context) => const BuildingForm()
       },
     );
   }
@@ -48,9 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: MyAppBar("Demo", context),
       body: ListView.builder(
           padding: const EdgeInsets.all(8),
           itemCount: _routes.length,
