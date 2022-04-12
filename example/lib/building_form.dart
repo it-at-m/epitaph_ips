@@ -1,11 +1,6 @@
-import 'package:example/building_view.dart';
-import 'myWidgets.dart';
-import 'mock_building.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/building.dart';
 import 'package:flutter/material.dart';
-import 'ui_constants.dart';
-
-    //const TextStyle(fontSize: 30, color: Colors.white));
+import 'mock_building.dart';
+import 'myWidgets.dart';
 
 // Define a custom Form widget.
 class BuildingForm extends StatefulWidget {
@@ -19,89 +14,84 @@ class BuildingForm extends StatefulWidget {
 
 class BuildingFormState extends State<BuildingForm> {
   final _formKey = GlobalKey<FormState>();
-  static Building mockupBuilding = createBuilding();
-  final buildingName = TextEditingController(text: mockupBuilding.key);
-  final location =
-      TextEditingController(text: mockupBuilding.location.toFullName());
+  static MockBuilding mockupBuilding = MockBuilding();
 
-  _onPressed() {
-    if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Processing Data')),
-      );
-      showDialog(
-        context: context,
-        builder: (context) {
-          return const BuildingView();
-          //AlertDialog(
-          //content: Text("Name: ${buildingName.text}\nLocation ${location.text}"),);
-        },
-      );
+  final Map controllers = MyControllers.createControllers();
+  final List formKeys = MyControllers.getKeys();
+  final List formLabels = MyControllers.getLabels();
+  final Map formKeyLabels = MyControllers.getKeyLabels();
+
+  Item panel = Item(
+    headerValue: 'Building',
+    expandedValue: const Text(""),
+  );
+
+  void _saveLatestValue() {
+    final List<Widget> children = [];
+    final buildingView = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: children,
+    );
+    for (var key in formKeys) {
+      children.add(MyPadding(key, controllers[key].text));
+      children.add(MyDivider());
     }
+    panel.expandedValue = buildingView;
   }
 
-  _validator(value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter some text';
-    }
-    return null;
+  List<Widget> _createFields() {
+    List<Widget> fields = [];
+    formKeyLabels.forEach((key, label) {
+      fields.add(MyField(label, controllers[key]));
+    });
+    return fields;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Start listening to changes.
+    controllers.forEach((k, v) => v.addListener(_saveLatestValue));
   }
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    buildingName.dispose();
-    location.dispose();
+    controllers.forEach((k, v) => v.dispose());
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
-
-    final ButtonStyle style = ElevatedButton.styleFrom(
-        textStyle: TextStyleConstants.buttonTextBold(context));
-
     return Scaffold(
-      appBar: MyAppBar("Building creation", context),
+      appBar: AppBar(title: const Text("Building creation")),
       body: Form(
         key: _formKey,
-        child: Column(
-          children: [
-            TextFormField(
-              controller: buildingName,
-              autofocus: true,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Building name',
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Column(
+                children: _createFields(),
               ),
-              // The validator receives the text that the user has entered.
-              validator: (value) => _validator(value),
-            ),
-            TextFormField(
-              controller: location,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Address',
+              ExpansionPanelList(
+                expansionCallback: (int i, bool isExpanded) {
+                  setState(() {
+                    panel.isExpanded = !isExpanded;
+                  });
+                },
+                children: <ExpansionPanel>[
+                  ExpansionPanel(
+                    headerBuilder: (BuildContext context, bool isExpanded) {
+                      return ListTile(title: Text(panel.headerValue));
+                    },
+                    body: panel.expandedValue,
+                    isExpanded: panel.isExpanded,
+                  ),
+                ],
               ),
-              // The validator receives the text that the user has entered.
-              validator: (value) => _validator(value),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                _onPressed();
-              },
-              child: const Text('Create'),
-              style: style,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Go back!'),
-              style: style,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

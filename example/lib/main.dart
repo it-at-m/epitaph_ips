@@ -1,10 +1,7 @@
-import 'package:epitaph_ips/epitaph_graphs/graphs/graph.dart';
-import 'package:epitaph_ips/epitaph_ips/tracking/tracker.dart';
 import 'package:example/building_view.dart';
 import 'package:flutter/material.dart';
 import 'building_form.dart';
-import 'myWidgets.dart';
-
+import 'mock_building.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +20,9 @@ class MyApp extends StatelessWidget {
         '/': (context) => const MyHomePage(title: 'Epitaph Demo Home Page'),
         '/Create Building': (context) => const BuildingForm(),
         '/Create Graph': (context) => const BuildingForm(),
-        '/Tracking': (context) => const BuildingForm()
+        '/Tracking': (context) => const BuildingForm(),
+        '/Create Building/Building view': (context) => const BuildingView()
+
       },
     );
   }
@@ -48,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar("Demo", context),
+      appBar: AppBar(title: const Text("Epitaph Demo")),
       body: ListView.builder(
           padding: const EdgeInsets.all(8),
           itemCount: _routes.length,
