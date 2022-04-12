@@ -18,7 +18,7 @@ import 'unit_tests/epitaph_graphs/nodes/vertex.dart';
 import 'unit_tests/epitaph_ips/buildings/area.dart';
 import 'unit_tests/epitaph_ips/buildings/building.dart';
 import 'unit_tests/epitaph_ips/buildings/circular_area.dart';
-import 'unit_tests/epitaph_ips/buildings/coordinate.dart';
+import 'unit_tests/epitaph_ips/buildings/point.dart';
 import 'unit_tests/epitaph_ips/buildings/floor.dart';
 import 'unit_tests/epitaph_ips/buildings/landmark.dart';
 import 'unit_tests/epitaph_ips/buildings/polygonal_area.dart';
@@ -81,8 +81,8 @@ Future<void> main() async {
   UndirectedGraphTests undirectedGraphTests = UndirectedGraphTests();
   undirectedGraphTests.runTests();
 
-  CoordinateTests coordinateTest = CoordinateTests();
-  coordinateTest.runTests();
+  PointTests pointTest = PointTests();
+  pointTest.runTests();
 
   WorldLocationTests worldLocationTests = WorldLocationTests();
   worldLocationTests.runTests();

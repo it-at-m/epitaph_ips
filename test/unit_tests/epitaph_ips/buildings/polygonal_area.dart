@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/polygonal_area.dart';
 
 class PolygonalAreaTests {
@@ -8,47 +8,43 @@ class PolygonalAreaTests {
     tearDownAll(() {});
 
     PolygonalArea area2d = PolygonalArea(points: [
-      Coordinate(1, 1),
-      Coordinate(2, 1),
-      Coordinate(3, 4),
-      Coordinate(4, 4),
-      Coordinate(2, -1),
-      Coordinate(2, 7),
-      Coordinate(-7, 1),
-      Coordinate(16, -0.5),
-      Coordinate(5, 1),
-      Coordinate(10, 8),
-      Coordinate(7, 5),
-      Coordinate(8, 5.5),
+      Point(1, 1),
+      Point(2, 1),
+      Point(3, 4),
+      Point(4, 4),
+      Point(2, -1),
+      Point(2, 7),
+      Point(-7, 1),
+      Point(16, -0.5),
+      Point(5, 1),
+      Point(10, 8),
+      Point(7, 5),
+      Point(8, 5.5),
     ]);
 
     group("*PolygonalArea Constructor Unit Tests*", () {
       test("PolygonalArea constructor 2d", () {
         //Arrange
-        List<Coordinate> expected = [
-          Coordinate(1, 1),
-          Coordinate(2, 1),
-          Coordinate(3, 3),
-          Coordinate(4, 3)
+        List<Point> expected = [
+          Point(1, 1),
+          Point(2, 1),
+          Point(3, 3),
+          Point(4, 3)
         ];
 
         //Act and expected
         expect(
             () => PolygonalArea(points: expected), isNot(throwsAssertionError));
 
-        PolygonalArea retrieved = PolygonalArea(points: [
-          Coordinate(1, 1),
-          Coordinate(2, 1),
-          Coordinate(3, 3),
-          Coordinate(4, 3)
-        ]);
+        PolygonalArea retrieved = PolygonalArea(
+            points: [Point(1, 1), Point(2, 1), Point(3, 3), Point(4, 3)]);
 
-        List<Coordinate> expectedHull = [
-          Coordinate(1.0, 1.0, 0.0),
-          Coordinate(2.0, 1.0, 0.0),
-          Coordinate(4.0, 3.0, 0.0),
-          Coordinate(3.0, 3.0, 0.0),
-          Coordinate(1.0, 1.0, 0.0)
+        List<Point> expectedHull = [
+          Point(1.0, 1.0, 0.0),
+          Point(2.0, 1.0, 0.0),
+          Point(4.0, 3.0, 0.0),
+          Point(3.0, 3.0, 0.0),
+          Point(1.0, 1.0, 0.0)
         ];
 
         expect(retrieved.points.toString(), expected.toString());
@@ -56,11 +52,11 @@ class PolygonalAreaTests {
       });
       test("PolygonalArea constructor 3d AssertionError", () {
         //Arrange
-        List<Coordinate> expected = [
-          Coordinate(1, 1, 1),
-          Coordinate(2, 1, 2),
-          Coordinate(3, 3, 3),
-          Coordinate(4, 3, 4)
+        List<Point> expected = [
+          Point(1, 1, 1),
+          Point(2, 1, 2),
+          Point(3, 3, 3),
+          Point(4, 3, 4)
         ];
 
         //Act and expected
@@ -68,8 +64,8 @@ class PolygonalAreaTests {
       });
       test("PolygonalArea constructor assertion error", () {
         //Arrange
-        List<Coordinate> error = [
-          Coordinate(
+        List<Point> error = [
+          Point(
             1,
             1,
           )
@@ -78,11 +74,11 @@ class PolygonalAreaTests {
         //Act and expected
         expect(() => PolygonalArea(points: error), throwsAssertionError);
 
-        List<Coordinate> noError = [
-          Coordinate(1, 1),
-          Coordinate(2, 1),
-          Coordinate(3, 3),
-          Coordinate(4, 3)
+        List<Point> noError = [
+          Point(1, 1),
+          Point(2, 1),
+          Point(3, 3),
+          Point(4, 3)
         ];
 
         expect(
@@ -100,11 +96,11 @@ class PolygonalAreaTests {
         //Check for assertion
         expect(() => PolygonalArea.fromJson(error), throwsAssertionError);
 
-        List<Coordinate> expectedValue = [
-          Coordinate(1.0, 1.0),
-          Coordinate(2.0, 1.0),
-          Coordinate(3.0, 3.0),
-          Coordinate(4.0, 3.0)
+        List<Point> expectedValue = [
+          Point(1.0, 1.0),
+          Point(2.0, 1.0),
+          Point(3.0, 3.0),
+          Point(4.0, 3.0)
         ];
 
         PolygonalArea polygonalArea = PolygonalArea.fromJson({
@@ -121,12 +117,12 @@ class PolygonalAreaTests {
           expect(polygonalArea.points[i].y, expectedValue[i].y);
           expect(polygonalArea.points[i].z, expectedValue[i].z);
         }
-        List<Coordinate> expectedHull = [
-          Coordinate(1.0, 1.0, 0.0),
-          Coordinate(2.0, 1.0, 0.0),
-          Coordinate(4.0, 3.0, 0.0),
-          Coordinate(3.0, 3.0, 0.0),
-          Coordinate(1.0, 1.0, 0.0)
+        List<Point> expectedHull = [
+          Point(1.0, 1.0, 0.0),
+          Point(2.0, 1.0, 0.0),
+          Point(4.0, 3.0, 0.0),
+          Point(3.0, 3.0, 0.0),
+          Point(1.0, 1.0, 0.0)
         ];
 
         expect(
@@ -139,7 +135,7 @@ class PolygonalAreaTests {
           bool expected = false;
 
           //Arrange
-          Coordinate point = Coordinate(0, 6);
+          Point point = Point(0, 6);
 
           //expected
           expect(area2d.pointInArea(point), expected);
@@ -150,18 +146,18 @@ class PolygonalAreaTests {
           bool expected = true;
 
           //Arrange
-          Coordinate point = Coordinate(1, 1);
+          Point point = Point(1, 1);
 
           //expected
           expect(area2d.pointInArea(point), expected);
         });
         test("copy 2d", () {
           //Arrange
-          Coordinate expected = Coordinate(1, 1);
+          Point expected = Point(1, 1);
 
           //Act
           PolygonalArea copy = area2d.copy() as PolygonalArea;
-          Coordinate retrieved = copy.points[0];
+          Point retrieved = copy.points[0];
 
           expect(retrieved.x, expected.x);
           expect(retrieved.y, expected.y);
@@ -195,11 +191,11 @@ class PolygonalAreaTests {
         test("toString 2d", () {
           //Arrange
           String expectedValue =
-              'PolygonalArea(points: [Coordinate(x: 1.0, y: 1.0, z: 0.0), Coordinate(x: 2.0, y: 1.0, z: 0.0), Coordinate(x: 3.0, y: 3.0, z: 0.0)])';
+              'PolygonalArea(points: [Point(x: 1.0, y: 1.0, z: 0.0), Point(x: 2.0, y: 1.0, z: 0.0), Point(x: 3.0, y: 3.0, z: 0.0)])';
 
           //Act
-          PolygonalArea obj = PolygonalArea(
-              points: [Coordinate(1, 1), Coordinate(2, 1), Coordinate(3, 3)]);
+          PolygonalArea obj =
+              PolygonalArea(points: [Point(1, 1), Point(2, 1), Point(3, 3)]);
 
           String retrieved = obj.toString();
 

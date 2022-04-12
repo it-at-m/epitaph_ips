@@ -1,25 +1,25 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/circular_area.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 
 class CircularAreaTests {
   Future<void> runTests() async {
     setUpAll(() {});
     tearDownAll(() {});
 
-    CircularArea area2d = CircularArea(m: Coordinate(1, 1), r: 2.0);
+    CircularArea area2d = CircularArea(m: Point(1, 1), r: 2.0);
 
     group("*CircularArea Constructor Unit Tests*", () {
       test("CircularArea constructor 2d", () {
         //Arrange
-        Coordinate expectedM = Coordinate(1, 1);
+        Point expectedM = Point(1, 1);
         double expectedR = 2.0;
 
         //Act and expected
         expect(() => CircularArea(m: expectedM, r: expectedR),
             isNot(throwsAssertionError));
 
-        CircularArea retrieved = CircularArea(m: Coordinate(1, 1), r: 2.0);
+        CircularArea retrieved = CircularArea(m: Point(1, 1), r: 2.0);
 
         expect(retrieved.m.x, expectedM.x);
         expect(retrieved.m.y, expectedM.y);
@@ -27,17 +27,17 @@ class CircularAreaTests {
         expect(retrieved.r, expectedR);
       });
       test("CircularArea constructor 3d Assertion Error", () {
-        expect(() => CircularArea(m: Coordinate(3, 3, 3), r: 2.0),
+        expect(() => CircularArea(m: Point(3, 3, 3), r: 2.0),
             throwsAssertionError);
       });
       test("CircularArea.fromPoints constructor 2d", () {
         //Arrange
-        Coordinate expectedM = Coordinate(1, 1);
+        Point expectedM = Point(1, 1);
         double expectedR = 2.0;
 
         //Act and expected
-        CircularArea retrieved = CircularArea.fromPoints(
-            m: Coordinate(1, 1), rPoint: Coordinate(3, 1));
+        CircularArea retrieved =
+            CircularArea.fromPoints(m: Point(1, 1), rPoint: Point(3, 1));
 
         expect(retrieved.m.x, expectedM.x);
         expect(retrieved.m.y, expectedM.y);
@@ -46,7 +46,7 @@ class CircularAreaTests {
       });
       test("CircularArea.fromJson constructor 2d", () {
         //Arrange
-        Coordinate expectedM = Coordinate(1, 1);
+        Point expectedM = Point(1, 1);
         double expectedR = 2.0;
 
         //Act and expected
@@ -68,7 +68,7 @@ class CircularAreaTests {
           bool expected = false;
 
           //Arrange
-          Coordinate point = Coordinate(6, 2);
+          Point point = Point(6, 2);
 
           //expected
           expect(area2d.pointInArea(point), expected);
@@ -79,18 +79,18 @@ class CircularAreaTests {
           bool expected = true;
 
           //Arrange
-          Coordinate point = Coordinate(1, 1);
+          Point point = Point(1, 1);
 
           //expected
           expect(area2d.pointInArea(point), expected);
         });
         test("copy 2d", () {
           //Arrange
-          Coordinate expected = Coordinate(1, 1);
+          Point expected = Point(1, 1);
 
           //Act
           CircularArea copy = area2d.copy() as CircularArea;
-          Coordinate retrieved = copy.points[0];
+          Point retrieved = copy.points[0];
 
           expect(retrieved.x, expected.x);
           expect(retrieved.y, expected.y);
@@ -112,10 +112,10 @@ class CircularAreaTests {
         test("toString 2d", () {
           //Arrange
           String expectedValue =
-              'CircularArea(m: Coordinate(x: 1.0, y: 1.0, z: 0.0), r: 2.0)';
+              'CircularArea(m: Point(x: 1.0, y: 1.0, z: 0.0), r: 2.0)';
 
           //Act
-          CircularArea obj = CircularArea(m: Coordinate(1, 1), r: 2.0);
+          CircularArea obj = CircularArea(m: Point(1, 1), r: 2.0);
 
           String retrieved = obj.toString();
 

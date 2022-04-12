@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/room.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/polygonal_area.dart';
 
@@ -10,32 +10,20 @@ class RoomTests {
 
     Room testRoom = Room(
         key: 'TestRoom',
-        area: PolygonalArea(points: [
-          Coordinate(1, 1),
-          Coordinate(2, 1),
-          Coordinate(3, 3),
-          Coordinate(4, 3)
-        ]));
+        area: PolygonalArea(
+            points: [Point(1, 1), Point(2, 1), Point(3, 3), Point(4, 3)]));
 
     group("*Room Constructor Unit Tests*", () {
       test("Room constructor", () {
         //Arrange
         String expectedKey = 'TestRoom';
-        PolygonalArea expectedArea = PolygonalArea(points: [
-          Coordinate(1, 1),
-          Coordinate(2, 1),
-          Coordinate(3, 3),
-          Coordinate(4, 3)
-        ]);
+        PolygonalArea expectedArea = PolygonalArea(
+            points: [Point(1, 1), Point(2, 1), Point(3, 3), Point(4, 3)]);
 
         Room testRoom = Room(
             key: 'TestRoom',
-            area: PolygonalArea(points: [
-              Coordinate(1, 1),
-              Coordinate(2, 1),
-              Coordinate(3, 3),
-              Coordinate(4, 3)
-            ]));
+            area: PolygonalArea(
+                points: [Point(1, 1), Point(2, 1), Point(3, 3), Point(4, 3)]));
 
         expect(testRoom.key, expectedKey);
         expect(testRoom.area.toString(), expectedArea.toString());
@@ -71,7 +59,7 @@ class RoomTests {
         test("toString", () {
           //Arrange
           String expectedValue =
-              'Room:(key: TestRoom, area: PolygonalArea(points: [Coordinate(x: 1.0, y: 1.0, z: 0.0), Coordinate(x: 2.0, y: 1.0, z: 0.0), Coordinate(x: 3.0, y: 3.0, z: 0.0), Coordinate(x: 4.0, y: 3.0, z: 0.0)]))';
+              'Room:(key: TestRoom, area: PolygonalArea(points: [Point(x: 1.0, y: 1.0, z: 0.0), Point(x: 2.0, y: 1.0, z: 0.0), Point(x: 3.0, y: 3.0, z: 0.0), Point(x: 4.0, y: 3.0, z: 0.0)]))';
 
           String retrieved = testRoom.toString();
 

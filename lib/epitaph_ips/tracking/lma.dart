@@ -1,4 +1,4 @@
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/beacon.dart';
 import 'package:epitaph_ips/epitaph_ips/tracking/lma_function.dart';
 import 'package:epitaph_ips/epitaph_ips/tracking/multilateration_function.dart';
@@ -108,7 +108,7 @@ class LMA extends Calculator {
   }
 
   @override
-  Coordinate calculate(List<Beacon> beacons) {
+  Point calculate(List<Beacon> beacons) {
     _function.adjustParameters(beacons);
     Vector initialGuess = _function.computeInitialGuess(beacons);
 
@@ -135,7 +135,7 @@ class LMA extends Calculator {
 
         if (converged) {
           _finalCost = previousCost;
-          return Coordinate.vector(optimized);
+          return Point.vector(optimized);
         }
       }
 
@@ -150,7 +150,7 @@ class LMA extends Calculator {
         _negativeStep = Matrix.fromList(
             matrixSolve(matrixToList(_hessian), matrixToList(_gradient)));
       } catch (error) {
-        return Coordinate.vector(optimized);
+        return Point.vector(optimized);
       }
 
       // compute the candidate parameters
@@ -170,7 +170,7 @@ class LMA extends Calculator {
 
         if (converged) {
           _finalCost = previousCost;
-          Coordinate.vector(optimized);
+          Point.vector(optimized);
         }
       } else {
         lambda *= 10.0;
@@ -178,6 +178,6 @@ class LMA extends Calculator {
     }
 
     _finalCost = previousCost;
-    return Coordinate.vector(optimized);
+    return Point.vector(optimized);
   }
 }

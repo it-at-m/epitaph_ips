@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/mock_beacon.dart';
 
 class MockBeaconTests {
@@ -8,7 +8,7 @@ class MockBeaconTests {
     tearDownAll(() {});
 
     MockBeacon testBeacon = MockBeacon(
-        'E4:E1:12:9A:49:EB', 'blukii BXXXXX E4E1129B0B88', Coordinate(1, 1));
+        'E4:E1:12:9A:49:EB', 'blukii BXXXXX E4E1129B0B88', Point(1, 1));
 
     group("*MockBeacon constructor Unit Tests*", () {
       test("id cannot be empty", () {
@@ -16,9 +16,7 @@ class MockBeaconTests {
         Matcher expectedValue = throwsAssertionError;
 
         //Act and expect
-        expect(
-            () =>
-                MockBeacon("", 'blukii BXXXXX E4E1129B0B88', Coordinate(1, 1)),
+        expect(() => MockBeacon("", 'blukii BXXXXX E4E1129B0B88', Point(1, 1)),
             expectedValue);
       });
       test("name cannot be empty", () {
@@ -26,7 +24,7 @@ class MockBeaconTests {
         Matcher expectedValue = throwsAssertionError;
 
         //Act and expect
-        expect(() => MockBeacon('E4:E1:12:9A:49:EB', '', Coordinate(1, 1)),
+        expect(() => MockBeacon('E4:E1:12:9A:49:EB', '', Point(1, 1)),
             expectedValue);
       });
     });
@@ -50,10 +48,10 @@ class MockBeaconTests {
     group("*MockBeacon getter Unit Tests*", () {
       test("get location", () {
         //Arrange
-        Coordinate expectedValue = Coordinate(1.0, 1.0);
+        Point expectedValue = Point(1.0, 1.0);
 
         //Act
-        Coordinate retrieved = testBeacon.position;
+        Point retrieved = testBeacon.position;
 
         //expect
         expect(retrieved.x, expectedValue.x);
@@ -121,7 +119,7 @@ class MockBeaconTests {
 
         //Act
         bool foundMatchingValue = false;
-        testBeacon.sendRssiAdvertisement(Coordinate(2, 2));
+        testBeacon.sendRssiAdvertisement(Point(2, 2));
         int retrieved = testBeacon.rssi.toInt();
         for (var element in expectedValues) {
           if (element == retrieved) foundMatchingValue = true;
@@ -171,7 +169,7 @@ class MockBeaconTests {
       test("toString", () {
         //Arrange
         String expectedValue =
-            'Beacon(id: E4:E1:12:9A:49:EB, name: blukii BXXXXX E4E1129B0B88, position: Coordinate(x: 1.0, y: 1.0, z: 0.0), rssi: -23.0, distanceToUser: 0.0199526231496888)';
+            'Beacon(id: E4:E1:12:9A:49:EB, name: blukii BXXXXX E4E1129B0B88, position: Point(x: 1.0, y: 1.0, z: 0.0), rssi: -23.0, distanceToUser: 0.0199526231496888)';
 
         //Act
         testBeacon.rssiUpdate(-23);

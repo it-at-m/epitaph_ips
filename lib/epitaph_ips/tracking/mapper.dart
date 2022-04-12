@@ -5,7 +5,7 @@ import 'package:epitaph_ips/epitaph_graphs/nodes/epitaph_vertex.dart';
 import 'package:epitaph_ips/epitaph_graphs/path_finding/dijkstra.dart';
 import 'package:epitaph_ips/epitaph_graphs/path_finding/path.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/building.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/room.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/beacon.dart';
 import 'package:epitaph_ips/epitaph_ips/tracking/filter.dart';
@@ -34,7 +34,7 @@ class Mapper extends Tracker {
   final Building _building;
 
   ///Mapped position
-  Coordinate _mappedPosition = Coordinate.origin();
+  Point _mappedPosition = Point.origin();
 
   ///Path to current destination
   Path path = Path(Queue<EpitaphVertex>());
@@ -48,7 +48,7 @@ class Mapper extends Tracker {
   ///Signifies if current position is within an area
   bool _inArea = false;
 
-  Coordinate get mappedPosition => _mappedPosition;
+  Point get mappedPosition => _mappedPosition;
 
   bool get inArea => _inArea;
 
@@ -69,25 +69,25 @@ class Mapper extends Tracker {
     Room? currentRoom = _building.getCurrentRoom(finalPosition);
 
     if (currentRoom != null) {
-      if (currentRoom.area.pointInArea(edge.source.coordinate)) {
-        _mappedPosition = edge.source.coordinate;
+      if (currentRoom.area.pointInArea(edge.source.point)) {
+        _mappedPosition = edge.source.point;
         _inArea = true;
         return;
-      } else if (currentRoom.area.pointInArea(edge.target.coordinate)) {
-        _mappedPosition = edge.target.coordinate;
+      } else if (currentRoom.area.pointInArea(edge.target.point)) {
+        _mappedPosition = edge.target.point;
         _inArea = true;
         return;
       }
     }
 
     if (scale <= 0) {
-      _mappedPosition = edge.source.coordinate;
+      _mappedPosition = edge.source.point;
     } else if (scale >= 1) {
-      _mappedPosition = edge.target.coordinate;
+      _mappedPosition = edge.target.point;
     } else {
       Vector originShadow = edge.toVector() * scale;
-      Vector shadow = edge.source.coordinate.toVector() + originShadow;
-      _mappedPosition = Coordinate.vector(shadow);
+      Vector shadow = edge.source.point.toVector() + originShadow;
+      _mappedPosition = Point.vector(shadow);
     }
   }
 
@@ -111,10 +111,9 @@ class Mapper extends Tracker {
     for (EpitaphEdge edge in edges) {
       double shortestDistance = edge.shortestDistance(position);
 
-      if (currentRoom?.area.pointInArea(edge.source.coordinate) ?? false) {
+      if (currentRoom?.area.pointInArea(edge.source.point) ?? false) {
         shortestDistance = 0;
-      } else if (currentRoom?.area.pointInArea(edge.target.coordinate) ??
-          false) {
+      } else if (currentRoom?.area.pointInArea(edge.target.point) ?? false) {
         shortestDistance = 0;
       }
 
@@ -160,8 +159,8 @@ class Mapper extends Tracker {
   }
 
   /// Returns the Euclidean distance from the user's position to the final destination
-  double distanceToDestination([Coordinate? start]) {
+  double distanceToDestination([Point? start]) {
     EpitaphVertex last = path.path.last as EpitaphVertex;
-    return (start ?? _mappedPosition).distanceTo(last.coordinate);
+    return (start ?? _mappedPosition).distanceTo(last.point);
   }
 }

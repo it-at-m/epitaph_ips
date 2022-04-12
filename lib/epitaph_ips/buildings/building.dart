@@ -1,4 +1,4 @@
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:flutter/foundation.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/floor.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/polygonal_area.dart';
@@ -69,14 +69,14 @@ class Building {
     };
   }
 
-  Room? getCurrentRoom(Coordinate coordinate) {
+  Room? getCurrentRoom(Point point) {
     for (Floor floor in floors) {
-      if (!floor.area.pointInArea(coordinate)) {
+      if (!floor.area.pointInArea(point)) {
         continue;
       }
 
       for (Room room in floor.rooms) {
-        if (room.area.pointInArea(coordinate)) {
+        if (room.area.pointInArea(point)) {
           return room;
         }
       }

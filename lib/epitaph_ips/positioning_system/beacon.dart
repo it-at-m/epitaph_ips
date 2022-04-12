@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 
 /// [Beacon] serves as a representation for a BLE-Beacon in the world.
 abstract class Beacon {
@@ -17,8 +17,8 @@ abstract class Beacon {
   /// Name of the beacon determined by producer.
   final String name;
 
-  /// [position] is the Location of the Beacon in the world mapped to a cartesian coordinate system.
-  final Coordinate position;
+  /// [position] is the Location of the Beacon in the world mapped to a cartesian Point system.
+  final Point position;
 
   final BeaconsConfiguration configuration;
 

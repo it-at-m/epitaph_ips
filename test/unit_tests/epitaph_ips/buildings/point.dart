@@ -1,25 +1,25 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:ml_linalg/linalg.dart';
 
-class CoordinateTests {
+class PointTests {
   Future<void> runTests() async {
     setUpAll(() {});
     tearDownAll(() {});
 
-    group("*UnitTestCoordinate getter Unit Tests*", () {
+    group("*UnitTestPoint getter Unit Tests*", () {
       test("get x-y-z-values", () {
         //Arrange
         double expectedX = 36.0;
         double expectedY = 6.4;
         double expectedZ = 117.0;
 
-        Coordinate coordinate = Coordinate(expectedX, expectedY, expectedZ);
+        Point point = Point(expectedX, expectedY, expectedZ);
 
         //Act
-        double retrievedX = coordinate.x;
-        double retrievedY = coordinate.y;
-        double retrievedZ = coordinate.z;
+        double retrievedX = point.x;
+        double retrievedY = point.y;
+        double retrievedZ = point.z;
 
         //expect
         expect(expectedX, retrievedX);
@@ -33,10 +33,10 @@ class CoordinateTests {
         double expectedZ = -117;
 
         //Act
-        Coordinate coordinate = Coordinate(expectedX, expectedY, expectedZ);
-        double retrievedX = coordinate.x;
-        double retrievedY = coordinate.y;
-        double retrievedZ = coordinate.z;
+        Point point = Point(expectedX, expectedY, expectedZ);
+        double retrievedX = point.x;
+        double retrievedY = point.y;
+        double retrievedZ = point.z;
 
         //expect
         expect(expectedX, retrievedX);
@@ -51,7 +51,7 @@ class CoordinateTests {
         double expectedZ = 117;
 
         //Act
-        Vector vector = Coordinate(expectedX, expectedY, expectedZ).toVector();
+        Vector vector = Point(expectedX, expectedY, expectedZ).toVector();
         double retrievedX = vector.elementAt(0);
         double retrievedY = vector.elementAt(1);
         double retrievedZ = vector.elementAt(2);
@@ -62,7 +62,7 @@ class CoordinateTests {
         expect(expectedZ, retrievedZ);
       });
     });
-    group("*UnitTestCoordinate Method Unit Tests*", () {
+    group("*UnitTestPoint Method Unit Tests*", () {
       test('equality of factories', () {
         double x = 1;
         double y = 1;
@@ -70,78 +70,76 @@ class CoordinateTests {
         List<double> l = [x, y, z];
         Vector v = Vector.fromList([x, y, z]);
         Map<String, dynamic> m = {'x': x, 'y': y, 'z': z};
-        Coordinate parameters = Coordinate(x, y, z);
-        Coordinate list = Coordinate.list(l);
-        Coordinate vector = Coordinate.vector(v);
-        Coordinate json = Coordinate.fromJson(m);
+        Point parameters = Point(x, y, z);
+        Point list = Point.list(l);
+        Point vector = Point.vector(v);
+        Point json = Point.fromJson(m);
         expect(parameters.toString(), list.toString());
         expect(list.toString(), vector.toString());
         expect(vector.toString(), json.toString());
       });
       test('assertion tests', () {
-        expect(() => Coordinate.list([117]), throwsAssertionError);
-        expect(() => Coordinate.list([0, 1, 1, 7]), throwsAssertionError);
-        expect(() => Coordinate.vector(Vector.fromList([117])),
+        expect(() => Point.list([117]), throwsAssertionError);
+        expect(() => Point.list([0, 1, 1, 7]), throwsAssertionError);
+        expect(
+            () => Point.vector(Vector.fromList([117])), throwsAssertionError);
+        expect(() => Point.vector(Vector.fromList([0, 1, 1, 7])),
             throwsAssertionError);
-        expect(() => Coordinate.vector(Vector.fromList([0, 1, 1, 7])),
-            throwsAssertionError);
-        expect(() => Coordinate.fromJson({'x': 117}), throwsAssertionError);
-        expect(() => Coordinate.fromJson({'w': 0, 'x': 1, 'y': 1, 'z': 7}),
+        expect(() => Point.fromJson({'x': 117}), throwsAssertionError);
+        expect(() => Point.fromJson({'w': 0, 'x': 1, 'y': 1, 'z': 7}),
             throwsAssertionError);
       });
-      test("distanceTo self coordinate zero", () {
+      test("distanceTo self Point zero", () {
         //Arrange
         double expectedDistance = 0;
 
         double x = 3.0;
         double y = -1.2;
 
-        Coordinate coordinate = Coordinate(x, y);
+        Point point = Point(x, y);
 
         //Act
-        double retrievedDistance = coordinate.distanceTo(coordinate);
+        double retrievedDistance = point.distanceTo(point);
 
         //expect
         expect(expectedDistance, retrievedDistance);
       });
-      test("distanceTo other coordinate", () {
+      test("distanceTo other Point", () {
         //Arrange
         double expectedDistance = 5.199999721233654;
 
         double x = 3.0;
         double y = -1.2;
 
-        Coordinate coordinate = Coordinate(x, y);
+        Point point = Point(x, y);
 
         //Act
-        double retrievedDistance = coordinate.distanceTo(Coordinate(3, 4));
+        double retrievedDistance = point.distanceTo(Point(3, 4));
 
         //expect
         expect(expectedDistance, retrievedDistance);
       });
-      test("toList coordinate", () {
+      test("toList Point", () {
         //Arrange
         List<double> expected = [-0.20000000298023224, -1, -117];
 
         //Act
-        List<double> retrieved =
-            Coordinate(-0.20000000298023224, -1, -117).toList();
+        List<double> retrieved = Point(-0.20000000298023224, -1, -117).toList();
 
         //expect
         expect(expected, retrieved);
       });
-      test("toVector coordinate", () {
+      test("toVector Point", () {
         //Arrange
         Vector expected = Vector.fromList([-0.20000000298023224, -1, -117]);
 
         //Act
-        Vector retrieved =
-            Coordinate(-0.20000000298023224, -1, -117).toVector();
+        Vector retrieved = Point(-0.20000000298023224, -1, -117).toVector();
 
         //expect
         expect(expected, retrieved);
       });
-      test('toJson coordinate', () {
+      test('toJson Point', () {
         //Arrange
         Map<String, dynamic> expected = {
           'x': -0.20000000298023224,
@@ -151,49 +149,49 @@ class CoordinateTests {
 
         //Act
         Map<String, dynamic> retrieved =
-            Coordinate(-0.20000000298023224, -1, -117).toJson();
+            Point(-0.20000000298023224, -1, -117).toJson();
 
         //expect
         expect(expected, retrieved);
       });
-      test("operator + add coordinate", () {
+      test("operator + add Point", () {
         //Arrange
-        Coordinate expectedSum = Coordinate(5.0, 1.7999999523162842);
+        Point expectedSum = Point(5.0, 1.7999999523162842);
 
         double x = 3.0;
         double y = -1.2;
-        Coordinate coordinate = Coordinate(x, y);
+        Point point = Point(x, y);
 
         //Act
-        Coordinate retrievedSum = coordinate + Coordinate(2, 3);
+        Point retrievedSum = point + Point(2, 3);
 
         //expect
         expect(retrievedSum.toString(), expectedSum.toString());
       });
-      test("operator - subtract coordinate", () {
+      test("operator - subtract Point", () {
         //Arrange
-        Coordinate expectedSum = Coordinate(1.0, -4.199999809265137);
+        Point expectedSum = Point(1.0, -4.199999809265137);
 
         double x = 3.0;
         double y = -1.2;
-        Coordinate coordinate = Coordinate(x, y);
+        Point point = Point(x, y);
 
         //Act
-        Coordinate retrievedSum = coordinate - Coordinate(2, 3);
+        Point retrievedSum = point - Point(2, 3);
 
         //expect
         expect(retrievedSum.toString(), expectedSum.toString());
       });
-      test("toString coordinate", () {
+      test("toString Point", () {
         //Arrange
-        String expectedString = "Coordinate(x: 5.0, y: 4.3, z: 0.0)";
+        String expectedString = "Point(x: 5.0, y: 4.3, z: 0.0)";
 
         double x = 5.0;
         double y = 4.3;
-        Coordinate coordinate = Coordinate(x, y);
+        Point point = Point(x, y);
 
         //Act
-        String retrievedString = coordinate.toString();
+        String retrievedString = point.toString();
 
         //expect
         expect(retrievedString.toString(), expectedString.toString());

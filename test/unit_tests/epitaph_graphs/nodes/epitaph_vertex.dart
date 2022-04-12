@@ -1,10 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:epitaph_ips/epitaph_graphs/nodes/epitaph_vertex.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 
 class EpitaphVertexTests {
-  final EpitaphVertex epitaphVertex =
-      EpitaphVertex('eVertex', Coordinate(1, 1));
+  final EpitaphVertex epitaphVertex = EpitaphVertex('eVertex', Point(1, 1));
 
   Future<void> runTests() async {
     setUpAll(() {});
@@ -15,34 +14,33 @@ class EpitaphVertexTests {
       test("constructor string name cannot be length 0 test", () {
         //Arrange
         String name = "";
-        Coordinate coordinate = Coordinate(0, 0);
+        Point point = Point(0, 0);
 
         //Act and expected
-        expect(() => EpitaphVertex(name, coordinate), throwsAssertionError);
+        expect(() => EpitaphVertex(name, point), throwsAssertionError);
       });
       test("constructor throws no assertion test", () {
         //Arrange
         String name = "eVertex";
-        Coordinate coordinate = Coordinate(0, 0);
+        Point point = Point(0, 0);
 
         //Act and expected
-        expect(
-            () => EpitaphVertex(name, coordinate), isNot(throwsAssertionError));
+        expect(() => EpitaphVertex(name, point), isNot(throwsAssertionError));
       });
       test("constructor fromJson", () {
         //Arrange
         String expName = 'eVertex';
-        Coordinate expCoordinate = Coordinate(0, 0);
+        Point expPoint = Point(0, 0);
 
         //Act
         EpitaphVertex vertex = EpitaphVertex.fromJson({
           'id': 'eVertex',
-          'coordinate': {'x': 0.0, 'y': 0.0, 'z': 0.0}
+          'Point': {'x': 0.0, 'y': 0.0, 'z': 0.0}
         });
 
         //expect
         expect(vertex.id, expName);
-        expect(vertex.coordinate.toString(), expCoordinate.toString());
+        expect(vertex.point.toString(), expPoint.toString());
       });
     });
     //Run all Vertex getter unit tests
@@ -57,12 +55,12 @@ class EpitaphVertexTests {
         //expected
         expect(retrieved, expectedValue);
       });
-      test("get coordinate of EpitaphVertex", () {
+      test("get Point of EpitaphVertex", () {
         //Arrange
-        String expectedValue = 'Coordinate(x: 1.0, y: 1.0, z: 0.0)';
+        String expectedValue = 'Point(x: 1.0, y: 1.0, z: 0.0)';
 
         //Act
-        String retrieved = epitaphVertex.coordinate.toString();
+        String retrieved = epitaphVertex.point.toString();
 
         //expected
         expect(retrieved, expectedValue);
@@ -75,8 +73,7 @@ class EpitaphVertexTests {
         bool expectedValue = true;
 
         //Act
-        EpitaphVertex epiVertex2 =
-            EpitaphVertex("eVertex", Coordinate.origin());
+        EpitaphVertex epiVertex2 = EpitaphVertex("eVertex", Point.origin());
 
         bool retrieved = epitaphVertex.equalsById(epiVertex2);
 
@@ -88,7 +85,7 @@ class EpitaphVertexTests {
         bool expectedValue = false;
 
         //Act
-        EpitaphVertex meeting = EpitaphVertex("Meeting", Coordinate.origin());
+        EpitaphVertex meeting = EpitaphVertex("Meeting", Point.origin());
 
         bool retrieved = epitaphVertex.equalsById(meeting);
 
@@ -120,7 +117,7 @@ class EpitaphVertexTests {
         double expected = 1.4142135623730951;
 
         //Act
-        EpitaphVertex other = EpitaphVertex("other", Coordinate(2, 2));
+        EpitaphVertex other = EpitaphVertex("other", Point(2, 2));
         double retrieved = epitaphVertex.distanceTo(other);
 
         //expected
@@ -130,7 +127,7 @@ class EpitaphVertexTests {
         //Arrange
         Map<String, dynamic> expectedValue = {
           'id': 'eVertex',
-          'coordinate': {'x': 1.0, 'y': 1.0, 'z': 0.0}
+          'Point': {'x': 1.0, 'y': 1.0, 'z': 0.0}
         };
 
         //Act
@@ -142,7 +139,7 @@ class EpitaphVertexTests {
       test("toString test", () {
         //Arrange
         String expectedValue =
-            'EpitaphVertex(id: eVertex, coordinate: Coordinate(x: 1.0, y: 1.0, z: 0.0))';
+            'EpitaphVertex(id: eVertex, Point: Point(x: 1.0, y: 1.0, z: 0.0))';
 
         //Act
         String retrieved = epitaphVertex.toString();

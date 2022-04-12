@@ -37,18 +37,18 @@ class EpitaphEdge extends DirectedEdge {
     double scale = shadowScale(position);
 
     if (scale <= 0) {
-      return source.coordinate.toVector() - position;
+      return source.point.toVector() - position;
     } else if (scale >= 1) {
-      return target.coordinate.toVector() - position;
+      return target.point.toVector() - position;
     } else {
-      Vector shadow = source.coordinate.toVector() + toVector() * scale;
+      Vector shadow = source.point.toVector() + toVector() * scale;
       return shadow - position;
     }
   }
 
   /// Returns the relative scale of the shortest source-position vector to this edge
   double shadowScale(Vector position) {
-    Vector sourcePosition = position - source.coordinate.toVector();
+    Vector sourcePosition = position - source.point.toVector();
     return sourcePosition.dot(toVector()) / pow(weight, 2);
   }
 
@@ -61,8 +61,7 @@ class EpitaphEdge extends DirectedEdge {
     return userTarget.abs() <= userSource.abs();
   }
 
-  Vector toVector() =>
-      target.coordinate.toVector() - source.coordinate.toVector();
+  Vector toVector() => target.point.toVector() - source.point.toVector();
 
   @override
   EpitaphEdge copy() => this;

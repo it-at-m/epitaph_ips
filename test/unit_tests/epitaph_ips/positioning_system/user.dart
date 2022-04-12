@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/world_location.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/user.dart';
 
@@ -9,14 +9,14 @@ class UserTests {
     tearDownAll(() {});
 
     User user = User(
-        position: Coordinate(0, 0),
+        position: Point(0, 0),
         cardinalDir: 180.0,
         location: WorldLocation(streetName: 'Marienplatz', streetNumber: 8));
 
     group("*User constructor Unit Tests*", () {
       test("Constructor full constructor", () {
         //Arrange
-        Coordinate expPosition = Coordinate(0, 0);
+        Point expPosition = Point(0, 0);
         double expCardinalDir = 180;
         WorldLocation expWorldLoc =
             WorldLocation(streetName: 'Marienplatz', streetNumber: 8);
@@ -34,7 +34,7 @@ class UserTests {
       });
       test("Constructor cardinalDir assertion false", () {
         //Arrange
-        Coordinate expPosition = Coordinate(0, 0);
+        Point expPosition = Point(0, 0);
         double expCardinalDir = 370;
         WorldLocation expWorldLoc =
             WorldLocation(streetName: 'Marienplatz', streetNumber: 8);
@@ -60,7 +60,7 @@ class UserTests {
         double expValue = 0;
 
         //Act
-        Coordinate expPosition = Coordinate(0, 0);
+        Point expPosition = Point(0, 0);
         WorldLocation expWorldLoc =
             WorldLocation(streetName: 'Marienplatz', streetNumber: 8);
         User retrieved = User(position: expPosition, location: expWorldLoc);
@@ -86,12 +86,11 @@ class UserTests {
       });
       test("Constructor; location null", () {
         //Arrange
-        Coordinate expPosition = Coordinate(0, 0);
+        Point expPosition = Point(0, 0);
         double expCardinalDir = 180;
 
         //Act
-        User test =
-            User(position: Coordinate(0, 0), cardinalDir: expCardinalDir);
+        User test = User(position: Point(0, 0), cardinalDir: expCardinalDir);
 
         //expected
         expect(user.position!.x, expPosition.x);
@@ -105,7 +104,7 @@ class UserTests {
       test("toString", () {
         //Arrange
         String expected =
-            'User(position: Coordinate(x: 0.0, y: 0.0, z: 0.0), cardinalDir: 180.0, location: WorldLocation(streetName: Marienplatz, streetNumber: 8, extra: null))';
+            'User(position: Point(x: 0.0, y: 0.0, z: 0.0), cardinalDir: 180.0, location: WorldLocation(streetName: Marienplatz, streetNumber: 8, extra: null))';
 
         //Act
         String retrieved = user.toString();

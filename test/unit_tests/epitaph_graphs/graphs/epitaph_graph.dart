@@ -6,7 +6,7 @@ import 'package:epitaph_ips/epitaph_graphs/nodes/epitaph_edge.dart';
 import 'package:epitaph_ips/epitaph_graphs/nodes/epitaph_vertex.dart';
 import 'package:epitaph_ips/epitaph_graphs/nodes/vertex.dart';
 import 'package:epitaph_ips/epitaph_graphs/path_finding/path.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 
 class EpitaphGraphTests {
   Future<void> runTests() async {
@@ -14,62 +14,46 @@ class EpitaphGraphTests {
     tearDownAll(() {});
 
     Map<EpitaphVertex, List<EpitaphEdge>> testMap = {
-      EpitaphVertex('1', Coordinate(1, 1)): [
-        EpitaphEdge(EpitaphVertex('1', Coordinate(1, 1)),
-            EpitaphVertex('2', Coordinate(2, 2)), 1, EpitaphEdgeAttributes(), 0)
+      EpitaphVertex('1', Point(1, 1)): [
+        EpitaphEdge(EpitaphVertex('1', Point(1, 1)),
+            EpitaphVertex('2', Point(2, 2)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('2', Coordinate(2, 2)): [
-        EpitaphEdge(
-            EpitaphVertex('2', Coordinate(2, 2)),
-            EpitaphVertex('3', Coordinate(3, 3)),
-            1,
-            EpitaphEdgeAttributes(),
-            0),
-        EpitaphEdge(EpitaphVertex('2', Coordinate(2, 2)),
-            EpitaphVertex('4', Coordinate(4, 4)), 1, EpitaphEdgeAttributes(), 0)
+      EpitaphVertex('2', Point(2, 2)): [
+        EpitaphEdge(EpitaphVertex('2', Point(2, 2)),
+            EpitaphVertex('3', Point(3, 3)), 1, EpitaphEdgeAttributes(), 0),
+        EpitaphEdge(EpitaphVertex('2', Point(2, 2)),
+            EpitaphVertex('4', Point(4, 4)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('3', Coordinate(3, 3)): [
-        EpitaphEdge(EpitaphVertex('3', Coordinate(3, 3)),
-            EpitaphVertex('4', Coordinate(4, 4)), 1, EpitaphEdgeAttributes(), 0)
+      EpitaphVertex('3', Point(3, 3)): [
+        EpitaphEdge(EpitaphVertex('3', Point(3, 3)),
+            EpitaphVertex('4', Point(4, 4)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('4', Coordinate(4, 4)): [
-        EpitaphEdge(
-            EpitaphVertex('4', Coordinate(4, 4)),
-            EpitaphVertex('5', Coordinate(5, 5)),
-            1,
-            EpitaphEdgeAttributes(),
-            0),
-        EpitaphEdge(EpitaphVertex('4', Coordinate(4, 4)),
-            EpitaphVertex('6', Coordinate(6, 6)), 1, EpitaphEdgeAttributes(), 0)
+      EpitaphVertex('4', Point(4, 4)): [
+        EpitaphEdge(EpitaphVertex('4', Point(4, 4)),
+            EpitaphVertex('5', Point(5, 5)), 1, EpitaphEdgeAttributes(), 0),
+        EpitaphEdge(EpitaphVertex('4', Point(4, 4)),
+            EpitaphVertex('6', Point(6, 6)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('5', Coordinate(5, 5)): [
-        EpitaphEdge(
-            EpitaphVertex('5', Coordinate(5, 5)),
-            EpitaphVertex('9', Coordinate(9, 9)),
-            1,
-            EpitaphEdgeAttributes(),
-            0),
-        EpitaphEdge(EpitaphVertex('5', Coordinate(5, 5)),
-            EpitaphVertex('8', Coordinate(8, 8)), 1, EpitaphEdgeAttributes(), 0)
+      EpitaphVertex('5', Point(5, 5)): [
+        EpitaphEdge(EpitaphVertex('5', Point(5, 5)),
+            EpitaphVertex('9', Point(9, 9)), 1, EpitaphEdgeAttributes(), 0),
+        EpitaphEdge(EpitaphVertex('5', Point(5, 5)),
+            EpitaphVertex('8', Point(8, 8)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('6', Coordinate(6, 6)): [
-        EpitaphEdge(EpitaphVertex('6', Coordinate(6, 6)),
-            EpitaphVertex('7', Coordinate(7, 7)), 1, EpitaphEdgeAttributes(), 0)
+      EpitaphVertex('6', Point(6, 6)): [
+        EpitaphEdge(EpitaphVertex('6', Point(6, 6)),
+            EpitaphVertex('7', Point(7, 7)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('7', Coordinate(7, 7)): [
-        EpitaphEdge(EpitaphVertex('7', Coordinate(7, 7)),
-            EpitaphVertex('8', Coordinate(8, 8)), 1, EpitaphEdgeAttributes(), 0)
+      EpitaphVertex('7', Point(7, 7)): [
+        EpitaphEdge(EpitaphVertex('7', Point(7, 7)),
+            EpitaphVertex('8', Point(8, 8)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('8', Coordinate(8, 8)): [],
-      EpitaphVertex('9', Coordinate(9, 9)): [
-        EpitaphEdge(
-            EpitaphVertex('9', Coordinate(9, 9)),
-            EpitaphVertex('10', Coordinate(10, 10)),
-            1,
-            EpitaphEdgeAttributes(),
-            0)
+      EpitaphVertex('8', Point(8, 8)): [],
+      EpitaphVertex('9', Point(9, 9)): [
+        EpitaphEdge(EpitaphVertex('9', Point(9, 9)),
+            EpitaphVertex('10', Point(10, 10)), 1, EpitaphEdgeAttributes(), 0)
       ],
-      EpitaphVertex('10', Coordinate(10, 10)): []
+      EpitaphVertex('10', Point(10, 10)): []
     };
 
     EpitaphGraph graph = EpitaphGraph(testMap);
@@ -81,7 +65,7 @@ class EpitaphGraphTests {
       test("getVertex in graph", () {
         //Arrange
         String expectedValue = "2";
-        EpitaphVertex vertex = EpitaphVertex('2', Coordinate(2, 2));
+        EpitaphVertex vertex = EpitaphVertex('2', Point(2, 2));
 
         //Act
         Vertex retrieved = graph.getVertex(vertex);
@@ -102,16 +86,16 @@ class EpitaphGraphTests {
       test("getAllVertices test", () {
         //Arrange
         List<EpitaphVertex> expectedValue = [
-          EpitaphVertex('1', Coordinate(1, 1)),
-          EpitaphVertex('2', Coordinate(2, 2)),
-          EpitaphVertex('3', Coordinate(3, 3)),
-          EpitaphVertex('4', Coordinate(4, 4)),
-          EpitaphVertex('5', Coordinate(5, 5)),
-          EpitaphVertex('6', Coordinate(6, 6)),
-          EpitaphVertex('7', Coordinate(7, 7)),
-          EpitaphVertex('8', Coordinate(8, 8)),
-          EpitaphVertex('9', Coordinate(9, 9)),
-          EpitaphVertex('10', Coordinate(10, 10))
+          EpitaphVertex('1', Point(1, 1)),
+          EpitaphVertex('2', Point(2, 2)),
+          EpitaphVertex('3', Point(3, 3)),
+          EpitaphVertex('4', Point(4, 4)),
+          EpitaphVertex('5', Point(5, 5)),
+          EpitaphVertex('6', Point(6, 6)),
+          EpitaphVertex('7', Point(7, 7)),
+          EpitaphVertex('8', Point(8, 8)),
+          EpitaphVertex('9', Point(9, 9)),
+          EpitaphVertex('10', Point(10, 10))
         ];
 
         //Act
@@ -152,72 +136,28 @@ class EpitaphGraphTests {
       test("getAllEdges in graph", () {
         //Arrange
         List<EpitaphEdge> expected = [
-          EpitaphEdge(
-              EpitaphVertex('1', Coordinate(1, 1)),
-              EpitaphVertex('2', Coordinate(2, 2)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
-          EpitaphEdge(
-              EpitaphVertex('2', Coordinate(2, 2)),
-              EpitaphVertex('3', Coordinate(3, 3)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
-          EpitaphEdge(
-              EpitaphVertex('2', Coordinate(2, 2)),
-              EpitaphVertex('4', Coordinate(4, 4)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
-          EpitaphEdge(
-              EpitaphVertex('3', Coordinate(3, 3)),
-              EpitaphVertex('4', Coordinate(4, 4)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
-          EpitaphEdge(
-              EpitaphVertex('4', Coordinate(4, 4)),
-              EpitaphVertex('5', Coordinate(5, 5)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
-          EpitaphEdge(
-              EpitaphVertex('4', Coordinate(4, 4)),
-              EpitaphVertex('6', Coordinate(6, 6)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
-          EpitaphEdge(
-              EpitaphVertex('5', Coordinate(5, 5)),
-              EpitaphVertex('9', Coordinate(9, 9)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
-          EpitaphEdge(
-              EpitaphVertex('5', Coordinate(5, 5)),
-              EpitaphVertex('8', Coordinate(8, 8)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
-          EpitaphEdge(
-              EpitaphVertex('6', Coordinate(6, 6)),
-              EpitaphVertex('7', Coordinate(7, 7)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
-          EpitaphEdge(
-              EpitaphVertex('7', Coordinate(7, 7)),
-              EpitaphVertex('8', Coordinate(8, 8)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
-          EpitaphEdge(
-              EpitaphVertex('9', Coordinate(9, 9)),
-              EpitaphVertex('10', Coordinate(10, 10)),
-              1,
-              EpitaphEdgeAttributes(),
-              0)
+          EpitaphEdge(EpitaphVertex('1', Point(1, 1)),
+              EpitaphVertex('2', Point(2, 2)), 1, EpitaphEdgeAttributes(), 0),
+          EpitaphEdge(EpitaphVertex('2', Point(2, 2)),
+              EpitaphVertex('3', Point(3, 3)), 1, EpitaphEdgeAttributes(), 0),
+          EpitaphEdge(EpitaphVertex('2', Point(2, 2)),
+              EpitaphVertex('4', Point(4, 4)), 1, EpitaphEdgeAttributes(), 0),
+          EpitaphEdge(EpitaphVertex('3', Point(3, 3)),
+              EpitaphVertex('4', Point(4, 4)), 1, EpitaphEdgeAttributes(), 0),
+          EpitaphEdge(EpitaphVertex('4', Point(4, 4)),
+              EpitaphVertex('5', Point(5, 5)), 1, EpitaphEdgeAttributes(), 0),
+          EpitaphEdge(EpitaphVertex('4', Point(4, 4)),
+              EpitaphVertex('6', Point(6, 6)), 1, EpitaphEdgeAttributes(), 0),
+          EpitaphEdge(EpitaphVertex('5', Point(5, 5)),
+              EpitaphVertex('9', Point(9, 9)), 1, EpitaphEdgeAttributes(), 0),
+          EpitaphEdge(EpitaphVertex('5', Point(5, 5)),
+              EpitaphVertex('8', Point(8, 8)), 1, EpitaphEdgeAttributes(), 0),
+          EpitaphEdge(EpitaphVertex('6', Point(6, 6)),
+              EpitaphVertex('7', Point(7, 7)), 1, EpitaphEdgeAttributes(), 0),
+          EpitaphEdge(EpitaphVertex('7', Point(7, 7)),
+              EpitaphVertex('8', Point(8, 8)), 1, EpitaphEdgeAttributes(), 0),
+          EpitaphEdge(EpitaphVertex('9', Point(9, 9)),
+              EpitaphVertex('10', Point(10, 10)), 1, EpitaphEdgeAttributes(), 0)
         ];
 
         //Act
@@ -246,9 +186,9 @@ class EpitaphGraphTests {
         //Arrange
         double expectedValue = 2.0;
         Queue<EpitaphVertex> vertices = Queue.from([
-          EpitaphVertex('1', Coordinate(1, 1)),
-          EpitaphVertex('2', Coordinate(2, 2)),
-          EpitaphVertex('3', Coordinate(3, 3))
+          EpitaphVertex('1', Point(1, 1)),
+          EpitaphVertex('2', Point(2, 2)),
+          EpitaphVertex('3', Point(3, 3))
         ]);
         Path path = Path(vertices);
 
@@ -261,18 +201,10 @@ class EpitaphGraphTests {
       test("getOutgoingEdges in graph", () {
         //Arrange
         List<EpitaphEdge> expected = [
-          EpitaphEdge(
-              EpitaphVertex('4', Coordinate(4, 4)),
-              EpitaphVertex('5', Coordinate(5, 5)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
-          EpitaphEdge(
-              EpitaphVertex('4', Coordinate(4, 4)),
-              EpitaphVertex('6', Coordinate(6, 6)),
-              1,
-              EpitaphEdgeAttributes(),
-              0)
+          EpitaphEdge(EpitaphVertex('4', Point(4, 4)),
+              EpitaphVertex('5', Point(5, 5)), 1, EpitaphEdgeAttributes(), 0),
+          EpitaphEdge(EpitaphVertex('4', Point(4, 4)),
+              EpitaphVertex('6', Point(6, 6)), 1, EpitaphEdgeAttributes(), 0)
         ];
 
         //Act
@@ -285,18 +217,10 @@ class EpitaphGraphTests {
       test("getOutgoingEdgesByString in graph", () {
         //Arrange
         List<EpitaphEdge> expected = [
-          EpitaphEdge(
-              EpitaphVertex('4', Coordinate(4, 4)),
-              EpitaphVertex('5', Coordinate(5, 5)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
-          EpitaphEdge(
-              EpitaphVertex('4', Coordinate(4, 4)),
-              EpitaphVertex('6', Coordinate(6, 6)),
-              1,
-              EpitaphEdgeAttributes(),
-              0)
+          EpitaphEdge(EpitaphVertex('4', Point(4, 4)),
+              EpitaphVertex('5', Point(5, 5)), 1, EpitaphEdgeAttributes(), 0),
+          EpitaphEdge(EpitaphVertex('4', Point(4, 4)),
+              EpitaphVertex('6', Point(6, 6)), 1, EpitaphEdgeAttributes(), 0)
         ];
 
         //Act
@@ -307,25 +231,17 @@ class EpitaphGraphTests {
       });
       test("getNeighboringEdgesOfEdge in graph", () {
         List<EpitaphEdge> expected = [
-          EpitaphEdge(
-              EpitaphVertex('2', Coordinate(2, 2)),
-              EpitaphVertex('4', Coordinate(3, 3)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
-          EpitaphEdge(
-              EpitaphVertex('3', Coordinate(2, 2)),
-              EpitaphVertex('4', Coordinate(3, 3)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
+          EpitaphEdge(EpitaphVertex('2', Point(2, 2)),
+              EpitaphVertex('4', Point(3, 3)), 1, EpitaphEdgeAttributes(), 0),
+          EpitaphEdge(EpitaphVertex('3', Point(2, 2)),
+              EpitaphVertex('4', Point(3, 3)), 1, EpitaphEdgeAttributes(), 0),
         ];
 
         //Act
         List<EpitaphEdge> retrieved = graph.getNeighboringEdgesOfEdge(
           graph.getEdgeByString(
-            EpitaphVertex('2', Coordinate(2, 2)).id,
-            EpitaphVertex('3', Coordinate(3, 3)).id,
+            EpitaphVertex('2', Point(2, 2)).id,
+            EpitaphVertex('3', Point(3, 3)).id,
           ),
         );
 
@@ -334,18 +250,10 @@ class EpitaphGraphTests {
       });
       test("getNeighboringEdgesOfEdgeByString in graph", () {
         List<EpitaphEdge> expected = [
-          EpitaphEdge(
-              EpitaphVertex('2', Coordinate(2, 2)),
-              EpitaphVertex('4', Coordinate(3, 3)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
-          EpitaphEdge(
-              EpitaphVertex('3', Coordinate(2, 2)),
-              EpitaphVertex('4', Coordinate(3, 3)),
-              1,
-              EpitaphEdgeAttributes(),
-              0),
+          EpitaphEdge(EpitaphVertex('2', Point(2, 2)),
+              EpitaphVertex('4', Point(3, 3)), 1, EpitaphEdgeAttributes(), 0),
+          EpitaphEdge(EpitaphVertex('3', Point(2, 2)),
+              EpitaphVertex('4', Point(3, 3)), 1, EpitaphEdgeAttributes(), 0),
         ];
 
         //Act
@@ -358,7 +266,7 @@ class EpitaphGraphTests {
       test("toString Edge syntax test", () {
         //Arrange
         String expectedValue =
-            'EpitaphGraph({EpitaphVertex(id: 1, coordinate: Coordinate(x: 1.0, y: 1.0, z: 0.0)): [EpitaphEdge(source: 1 -> target: 2, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 2, coordinate: Coordinate(x: 2.0, y: 2.0, z: 0.0)): [EpitaphEdge(source: 2 -> target: 3, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false)), EpitaphEdge(source: 2 -> target: 4, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 3, coordinate: Coordinate(x: 3.0, y: 3.0, z: 0.0)): [EpitaphEdge(source: 3 -> target: 4, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 4, coordinate: Coordinate(x: 4.0, y: 4.0, z: 0.0)): [EpitaphEdge(source: 4 -> target: 5, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false)), EpitaphEdge(source: 4 -> target: 6, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 5, coordinate: Coordinate(x: 5.0, y: 5.0, z: 0.0)): [EpitaphEdge(source: 5 -> target: 9, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false)), EpitaphEdge(source: 5 -> target: 8, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 6, coordinate: Coordinate(x: 6.0, y: 6.0, z: 0.0)): [EpitaphEdge(source: 6 -> target: 7, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 7, coordinate: Coordinate(x: 7.0, y: 7.0, z: 0.0)): [EpitaphEdge(source: 7 -> target: 8, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 8, coordinate: Coordinate(x: 8.0, y: 8.0, z: 0.0)): [], EpitaphVertex(id: 9, coordinate: Coordinate(x: 9.0, y: 9.0, z: 0.0)): [EpitaphEdge(source: 9 -> target: 10, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 10, coordinate: Coordinate(x: 10.0, y: 10.0, z: 0.0)): []})';
+            'EpitaphGraph({EpitaphVertex(id: 1, Point: Point(x: 1.0, y: 1.0, z: 0.0)): [EpitaphEdge(source: 1 -> target: 2, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 2, Point: Point(x: 2.0, y: 2.0, z: 0.0)): [EpitaphEdge(source: 2 -> target: 3, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false)), EpitaphEdge(source: 2 -> target: 4, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 3, Point: Point(x: 3.0, y: 3.0, z: 0.0)): [EpitaphEdge(source: 3 -> target: 4, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 4, Point: Point(x: 4.0, y: 4.0, z: 0.0)): [EpitaphEdge(source: 4 -> target: 5, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false)), EpitaphEdge(source: 4 -> target: 6, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 5, Point: Point(x: 5.0, y: 5.0, z: 0.0)): [EpitaphEdge(source: 5 -> target: 9, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false)), EpitaphEdge(source: 5 -> target: 8, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 6, Point: Point(x: 6.0, y: 6.0, z: 0.0)): [EpitaphEdge(source: 6 -> target: 7, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 7, Point: Point(x: 7.0, y: 7.0, z: 0.0)): [EpitaphEdge(source: 7 -> target: 8, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 8, Point: Point(x: 8.0, y: 8.0, z: 0.0)): [], EpitaphVertex(id: 9, Point: Point(x: 9.0, y: 9.0, z: 0.0)): [EpitaphEdge(source: 9 -> target: 10, weight: 1.0, cardinalDir: 0.0, attributes: EpitaphEdgeAttributes(isFloorChange: false))], EpitaphVertex(id: 10, Point: Point(x: 10.0, y: 10.0, z: 0.0)): []})';
         //Act
         String retrieved = graph.toString();
 

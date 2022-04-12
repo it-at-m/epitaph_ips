@@ -1,48 +1,40 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/area.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/coordinate.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 
 class AreaTests {
   Future<void> runTests() async {
     setUpAll(() {});
     tearDownAll(() {});
 
-    _MockArea area2d = _MockArea([
-      Coordinate(1, 1),
-      Coordinate(2, 2),
-      Coordinate(3, 3),
-      Coordinate(4, 4)
-    ]);
+    _MockArea area2d =
+        _MockArea([Point(1, 1), Point(2, 2), Point(3, 3), Point(4, 4)]);
 
     group("*Area Constructor Unit Tests*", () {
       test("Area constructor 2d", () {
         //Arrange
-        List<Coordinate> expected = [
-          Coordinate(1, 1),
-          Coordinate(2, 2),
-          Coordinate(3, 3),
-          Coordinate(4, 4)
+        List<Point> expected = [
+          Point(1, 1),
+          Point(2, 2),
+          Point(3, 3),
+          Point(4, 4)
         ];
 
         //Act and expected
         expect(() => _MockArea(expected), isNot(throwsAssertionError));
 
-        _MockArea retrieved = _MockArea([
-          Coordinate(1, 1),
-          Coordinate(2, 2),
-          Coordinate(3, 3),
-          Coordinate(4, 4)
-        ]);
+        _MockArea retrieved =
+            _MockArea([Point(1, 1), Point(2, 2), Point(3, 3), Point(4, 4)]);
 
         expect(retrieved.points.toString(), expected.toString());
       });
       test("Area constructor 3d Assertion Error", () {
         //Arrange
-        List<Coordinate> expected = [
-          Coordinate(1, 1, 1),
-          Coordinate(2, 2, 2),
-          Coordinate(3, 3, 3),
-          Coordinate(4, 4, 4)
+        List<Point> expected = [
+          Point(1, 1, 1),
+          Point(2, 2, 2),
+          Point(3, 3, 3),
+          Point(4, 4, 4)
         ];
 
         //Act and expected
@@ -55,7 +47,7 @@ class AreaTests {
           bool expected = false;
 
           //Arrange
-          Coordinate point = Coordinate(1, 2);
+          Point point = Point(1, 2);
 
           //expected
           expect(area2d.pointInArea(point), expected);
@@ -66,18 +58,18 @@ class AreaTests {
           bool expected = true;
 
           //Arrange
-          Coordinate point = Coordinate(1, 1);
+          Point point = Point(1, 1);
 
           //expected
           expect(area2d.pointInArea(point), expected);
         });
         test("copy 2d", () {
           //Arrange
-          Coordinate expected = Coordinate(1, 1);
+          Point expected = Point(1, 1);
 
           //Act
           _MockArea copy = area2d.copy() as _MockArea;
-          Coordinate retrieved = copy.points[0];
+          Point retrieved = copy.points[0];
 
           expect(retrieved.x, expected.x);
           expect(retrieved.y, expected.y);
@@ -103,10 +95,10 @@ class AreaTests {
         test("toString 2d", () {
           //Arrange
           String expectedValue =
-              'Area(points: [Coordinate(x: 1.0, y: 1.0, z: 0.0), Coordinate(x: 2.0, y: 2.0, z: 0.0)])';
+              'Area(points: [Point(x: 1.0, y: 1.0, z: 0.0), Point(x: 2.0, y: 2.0, z: 0.0)])';
 
           //Act
-          _MockArea obj = _MockArea([Coordinate(1, 1), Coordinate(2, 2)]);
+          _MockArea obj = _MockArea([Point(1, 1), Point(2, 2)]);
 
           String retrieved = obj.toString();
 
@@ -119,10 +111,10 @@ class AreaTests {
 }
 
 class _MockArea extends Area {
-  _MockArea(List<Coordinate> points) : super(points: points);
+  _MockArea(List<Point> points) : super(points: points);
 
   @override
-  pointInArea(Coordinate point) {
+  pointInArea(Point point) {
     bool found = false;
 
     for (var element in points) {
