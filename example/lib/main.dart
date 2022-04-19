@@ -1,7 +1,5 @@
-import 'package:example/building_view.dart';
 import 'package:flutter/material.dart';
 import 'building_form.dart';
-import 'mock_building.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +19,6 @@ class MyApp extends StatelessWidget {
         '/Create Building': (context) => const BuildingForm(),
         '/Create Graph': (context) => const BuildingForm(),
         '/Tracking': (context) => const BuildingForm(),
-        '/Create Building/Building view': (context) => const BuildingView()
 
       },
     );

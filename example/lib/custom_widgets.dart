@@ -1,45 +1,7 @@
 import 'package:flutter/material.dart';
-import 'ui_constants.dart';
 
-class MyAppBar extends AppBar {
-  MyAppBar(String text, BuildContext context, {Key? key})
-      : super(
-          key: key,
-          elevation: 15.0,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(25),
-              bottomRight: Radius.circular(25),
-            ),
-          ),
-          flexibleSpace: Container(
-            alignment: Alignment.center,
-            child: Text(
-              text,
-              style: TextStyleConstants.appBar(context),
-            ),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(25),
-                bottomRight: Radius.circular(25),
-              ),
-              color: ColorConstants.kvrBlue100,
-            ),
-          ),
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: ColorConstants.white,
-              size: 25,
-            ),
-            alignment: Alignment.topCenter,
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        );
-}
-
-class MyPadding extends Padding {
-  MyPadding(String label, String text, {Key? key})
+class CustomPadding extends Padding {
+  CustomPadding(String label, String text, {Key? key})
       : super(
           key: key,
           padding: const EdgeInsets.only(left: 2, right: 2),
@@ -58,11 +20,11 @@ class MyPadding extends Padding {
         );
 }
 
-class MyDivider extends Divider {
-  MyDivider({Key? key})
+class CustomDivider extends Divider {
+  const CustomDivider({Key? key})
       : super(
           key: key,
-          color: ColorConstants.black,
+          color: Colors.black,
           indent: 1,
           endIndent: 1,
           thickness: 2,
@@ -80,7 +42,7 @@ class Item {
   bool isExpanded;
 }
 
-class MyControllers {
+class CustomControllers {
 
   //['key', 'streetName', 'streetNumber', 'extra', 'floors', 'area', 'points', 'x', 'y', 'z', floorNumber, beacons: [{id: 001, name: bc1, position: {x: 1.0, y: 1.0, z: 0.0}}, {id: 002, name: bc2, position: {x: 10.0, y: 1.0, z: 0.0}}], rooms: [{key: 01, area: {points: [{x: 1.0, y: 1.0, z: 0.0}, {x: 1.0, y: 10.0, z: 0.0}, {x: 10.0, y: 10.0, z: 0.0}, {x: 10.0, y: 1.0, z: 0.0}]}}, {key: 02, area: {points: [{x: 11.0, y: 1.0, z: 0.0}, {x: 11.0, y: 10.0, z: 0.0}, {x: 20.0, y: 20.0, z: 0.0}, {x: 20.0, y: 1.0, z: 0.0}]}}], landmarks: []}], area: {points: [{x: -1.0, y: -1.0, z: 0.0}, {x: -1.0, y: 22.0, z: 0.0}, {x: 22.0, y: 22.0, z: 0.0}, {x: 22.0, y: -1.0, z: 0.0}]}};
   static final List _formKeys = ['key', 'streetName', 'streetNumber', 'extra'];
@@ -105,14 +67,14 @@ class MyControllers {
   static Map createControllers() {
     Map controllers = {};
     for (var k in _formKeys) {
-      controllers[k] = TextEditingController(text: k);
+      controllers[k] = TextEditingController();
     }
     return controllers;
   }
 }
 
-class MyField extends TextFormField {
-  MyField(String label, controller, {Key? key})
+class CustomField extends TextFormField {
+  CustomField(String label, controller, {Key? key})
       : super(
           key: key,
           controller: controller,

@@ -1,8 +1,18 @@
-import 'package:example/myWidgets.dart';
+import 'custom_widgets.dart';
 import 'package:flutter/material.dart';
 
 class BuildingView extends StatelessWidget {
-  const BuildingView({Key? key}) : super(key: key);
+  const BuildingView({Key? key, required this.values}) : super(key: key);
+  final Map values;
+
+  List<Widget> _get_values(){
+    final List<Widget> children = [];
+    for (var key in values.keys) {
+      children.add(CustomPadding(key, values[key]));
+      children.add(const CustomDivider());
+    }
+    return children;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,19 +29,7 @@ class BuildingView extends StatelessWidget {
           child: Card(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                MyPadding("Building Name", "Test"),
-                MyDivider(),
-                MyPadding("Location", "Test"),
-                MyDivider(),
-                MyPadding("Area", "Test"),
-                MyDivider(),
-                MyPadding("Test", "Test"),
-                MyDivider(),
-                MyPadding("Test", "Test"),
-                MyDivider(),
-                MyPadding("Test", "Test"),
-              ],
+              children: _get_values(),
             ),
           ),
         ),
@@ -39,20 +37,3 @@ class BuildingView extends StatelessWidget {
     );
   }
 }
-
-/*
-ElevatedButton(
-                onPressed: () {
-                  _onPressed();
-                },
-                child: const Text('Create building'),
-                style: style,
-              ),
-
-_onPressed() {
-    if (_formKey.currentState!.validate()) {
-      Navigator.pushNamed(context, '/Create Building/Building view');
-    }
-  }
-
- */

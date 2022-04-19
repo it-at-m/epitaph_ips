@@ -6,7 +6,6 @@ import 'package:epitaph_ips/epitaph_ips/buildings/room.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/world_location.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/mock_beacon.dart';
 
-
 class MockBuilding  extends Building {
   MockBuilding()
       : super(key: name, location: address, floors: stages, area: buildingArea);
