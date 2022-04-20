@@ -1,8 +1,7 @@
 import 'package:example/building_view.dart';
 import 'package:flutter/material.dart';
-import 'mock_building.dart';
 import 'custom_widgets.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/world_location.dart';
+import 'building_screens.dart';
 
 // Define a custom Form widget.
 class BuildingForm extends StatefulWidget {
@@ -16,28 +15,14 @@ class BuildingForm extends StatefulWidget {
 
 class BuildingFormState extends State<BuildingForm> {
   final _formKey = GlobalKey<FormState>();
-  static MockBuilding mockupBuilding = MockBuilding();
 
-  final Map controllers = CustomControllers.createControllers();
-  final List formKeys = CustomControllers.getKeys();
-  final List formLabels = CustomControllers.getLabels();
-  final Map formKeyLabels = CustomControllers.getKeyLabels();
-  final Map values = {};
+  static final Map fieldsNames = CustomLabels.fieldTypes["Building"];
+  final Map controllers = CustomController(fieldsNames.keys).controllers;
+  final Map rawValues = {};
 
-  void _saveLatestValue() {
-    final Map rawValues = {};
-    for (var key in formKeys) {
-      rawValues[key] = controllers[key].text;
-    }
-    final String location = WorldLocation(
-        streetName: rawValues["streetName"],
-        streetNumber: rawValues["streetNumber"],
-        extra: rawValues["extra"])
-        .toFullName();
-
+  void _updateValues(key, value) {
     setState(() {
-      values["Name"] = rawValues["key"];
-      values["Location"] = location;
+      rawValues[key] = value;
     });
   }
 
@@ -46,18 +31,25 @@ class BuildingFormState extends State<BuildingForm> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => BuildingView(values: values),
+          builder: (context) => BuildingView(rawValues: rawValues),
         ),
       );
     }
   }
 
-  List<Widget> _createFields() {
-    List<Widget> fields = [];
-    formKeyLabels.forEach((key, label) {
-      fields.add(CustomField(label, controllers[key]));
-    });
-    return fields;
+  void _newScreen(BuildContext context, screen) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => screen),
+    );
+    result.forEach((k, v) => _updateValues(k, v));
+
+    // After the Selection Screen returns a result, hide any previous snackbars
+    // and show the new result.
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text('Location saved')));
+
   }
 
   @override
@@ -65,7 +57,7 @@ class BuildingFormState extends State<BuildingForm> {
     super.initState();
 
     // Start listening to changes.
-    controllers.forEach((k, v) => v.addListener(_saveLatestValue));
+    controllers.forEach((k, v) => v.addListener(()=>_updateValues(k, v.text)));
   }
 
   @override
@@ -84,14 +76,41 @@ class BuildingFormState extends State<BuildingForm> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              const Divider(height: 3.0),
               Column(
-                children: _createFields(),
+                children: FieldBuilder("Building", controllers).fields,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton.icon(
+                    label: const Text("Add location"),
+                    icon: const Icon(Icons.location_on_outlined),
+                    onPressed: () {
+                      _newScreen(context, const LocationScreen());
+                    },
+                  ),
+                  ElevatedButton.icon(
+                    label: const Text('Add Floor'),
+                    icon: const Icon(Icons.map_outlined),
+                    onPressed: () {
+                      _newScreen(context, const FloorScreen());
+                    },
+                  ),
+                  ElevatedButton.icon(
+                    label: const Text('Add Area'),
+                    icon: const Icon(Icons.control_point),
+                    onPressed: () {
+                      _newScreen(context, const AreaScreen());
+                    },
+                  ),
+                ],
               ),
               ElevatedButton(
                 onPressed: () {
                   _submit();
                 },
-                child: const Text('Create'),
+                child: const Text('Create Building'),
               ),
             ],
           ),

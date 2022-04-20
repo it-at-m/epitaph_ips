@@ -1,22 +1,30 @@
 import 'custom_widgets.dart';
 import 'package:flutter/material.dart';
 
-class BuildingView extends StatelessWidget {
-  const BuildingView({Key? key, required this.values}) : super(key: key);
-  final Map values;
+class BuildingView extends StatefulWidget {
+  const BuildingView({Key? key, required this.rawValues}) : super(key: key);
+  final Map rawValues;
 
-  List<Widget> _get_values(){
+  @override
+  State<BuildingView> createState() => _BuildingViewState();
+}
+
+class _BuildingViewState extends State<BuildingView> {
+  List<Widget> getValues() {
     final List<Widget> children = [];
-    for (var key in values.keys) {
-      children.add(CustomPadding(key, values[key]));
-      children.add(const CustomDivider());
-    }
+    final Map values = CustomBuilding(values: widget.rawValues).toJson();
+    setState(() {
+      for (var key in values.keys) {
+        children.add(CustomPadding(key, values[key]));
+        children.add(const CustomDivider());
+      }
+    });
+
     return children;
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -29,7 +37,7 @@ class BuildingView extends StatelessWidget {
           child: Card(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: _get_values(),
+              children: getValues(),
             ),
           ),
         ),
