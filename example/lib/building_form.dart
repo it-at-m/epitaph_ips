@@ -1,7 +1,10 @@
 import 'package:example/building_view.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'custom_widgets.dart';
-import 'building_screens.dart';
+import 'location_screen.dart';
+import 'area_screen.dart';
+import 'floor_screen.dart';
 
 // Define a custom Form widget.
 class BuildingForm extends StatefulWidget {
@@ -27,13 +30,25 @@ class BuildingFormState extends State<BuildingForm> {
   }
 
   _submit() {
-    if (_formKey.currentState!.validate()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => BuildingView(rawValues: rawValues),
-        ),
-      );
+    try {
+      if (_formKey.currentState!.validate()) {
+        final Map building = CustomBuilding(values: rawValues).toJson();
+        debugPrint(rawValues.toString());
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BuildingView(building: building),
+          ),
+        );
+      }
+    } catch (e) {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("$e"),
+            );
+          });
     }
   }
 
@@ -45,11 +60,10 @@ class BuildingFormState extends State<BuildingForm> {
     result.forEach((k, v) => _updateValues(k, v));
 
     // After the Selection Screen returns a result, hide any previous snackbars
-    // and show the new result.
+    // and show a Message.
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text('Location saved')));
-
+      ..showSnackBar(const SnackBar(content: Text('Data saved')));
   }
 
   @override
@@ -57,7 +71,8 @@ class BuildingFormState extends State<BuildingForm> {
     super.initState();
 
     // Start listening to changes.
-    controllers.forEach((k, v) => v.addListener(()=>_updateValues(k, v.text)));
+    controllers
+        .forEach((k, v) => v.addListener(() => _updateValues(k, v.text)));
   }
 
   @override
@@ -99,7 +114,7 @@ class BuildingFormState extends State<BuildingForm> {
                   ),
                   ElevatedButton.icon(
                     label: const Text('Add Area'),
-                    icon: const Icon(Icons.control_point),
+                    icon: const Icon(Icons.square_foot_outlined),
                     onPressed: () {
                       _newScreen(context, const AreaScreen());
                     },

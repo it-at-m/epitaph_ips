@@ -7,23 +7,17 @@ import 'package:epitaph_ips/epitaph_ips/buildings/room.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/world_location.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/mock_beacon.dart';
 
-class CustomPadding extends Padding {
-  CustomPadding(String label, String text, {Key? key})
+class CustomRow extends Row {
+  CustomRow(String label, String text, {Key? key})
       : super(
           key: key,
-          padding: const EdgeInsets.only(left: 2, right: 2),
-          child: Row(
-            children: [
-              Text(label),
-              const Spacer(),
-              Text(
-                text,
-                style: TextStyle(
-                  color: Colors.black.withOpacity(0.6),
-                ),
-              ),
-            ],
-          ),
+          children: [
+            Text(label),
+            const Spacer(),
+            Expanded(
+              child: Text(text, textAlign: TextAlign.left),
+            ),
+          ],
         );
 }
 
@@ -109,11 +103,11 @@ class CustomBuilding extends Building {
       : super(
             key: values["key"],
             location: WorldLocation(
-                streetName: values['streetName'],// values["streetName"]
-                streetNumber: values['streetNumber'], // int.parse(values["streetNumber"]),
-                extra: values['extra']), // values["extra"]),
+                streetName: values['streetName'],
+                streetNumber: int.parse(values["streetNumber"]),
+                extra: values['extra']),
             floors: stages,
-            area: buildingArea);
+            area: values['area']);
 
   final Map values;
 
@@ -127,6 +121,8 @@ class CustomBuilding extends Building {
     return {
       'Name': key,
       'Address': location.toFullName(),
+      'Building area': area.toString(),
+      'Floors': floors.toString(),
     };
   }
 
@@ -134,34 +130,28 @@ class CustomBuilding extends Building {
   static MockBeacon bc2 = MockBeacon("002", "bc2", Point(10, 1));
   static List<MockBeacon> beacons = [bc1, bc2];
   static List<Point> roomPoints1 = [
-    Point(1, 1),
-    Point(1, 10),
+    Point(2, 2),
+    Point(2, 10),
     Point(10, 10),
-    Point(10, 1)
+    Point(10, 2)
   ];
   static List<Point> roomPoints2 = [
-    Point(11, 1),
+    Point(11, 2),
     Point(11, 10),
     Point(20, 20),
-    Point(20, 1)
+    Point(20, 2)
   ];
   static List<Point> floorPoints = [
-    Point(0, 0),
-    Point(0, 21),
+    Point(1, 1),
+    Point(1, 21),
     Point(21, 21),
-    Point(21, 0)
-  ];
-  static List<Point> buildingPoints = [
-    Point(-1, -1),
-    Point(-1, 22),
-    Point(22, 22),
-    Point(22, -1)
+    Point(21, 1)
   ];
 
   static PolygonalArea roomArea1 = PolygonalArea(points: roomPoints1);
   static PolygonalArea roomArea2 = PolygonalArea(points: roomPoints2);
   static PolygonalArea floorArea = PolygonalArea(points: floorPoints);
-  static PolygonalArea buildingArea = PolygonalArea(points: buildingPoints);
+  //static PolygonalArea buildingArea = PolygonalArea(points: buildingPoints);
 
   static Room room1 = Room(key: "01", area: roomArea1);
   static Room room2 = Room(key: "02", area: roomArea2);

@@ -67,35 +67,3 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
-
-class FloorScreen extends StatefulWidget {
-  const FloorScreen({Key? key}) : super(key: key);
-
-  @override
-  State<FloorScreen> createState() => _FloorScreenState();
-}
-
-class _FloorScreenState extends State<FloorScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text("Building: add floor")),
-        body: Container());
-  }
-}
-
-class AreaScreen extends StatefulWidget {
-  const AreaScreen({Key? key}) : super(key: key);
-
-  @override
-  State<AreaScreen> createState() => _AreaScreenState();
-}
-
-class _AreaScreenState extends State<AreaScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text("Building: add area")),
-        body: Container());
-  }
-}
