@@ -6,6 +6,7 @@ import 'package:epitaph_ips/epitaph_ips/buildings/polygonal_area.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/room.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/world_location.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/mock_beacon.dart';
+import 'package:flutter_spinbox/flutter_spinbox.dart';
 
 class CustomRow extends Row {
   CustomRow(String label, String text, {Key? key})
@@ -97,6 +98,21 @@ class CustomLabels {
     'extra': 'Extra Info (Postal Code, City...)'
   };
 }
+
+class CustomSpinBox extends SpinBox {
+  CustomSpinBox({Key? key, required Text axis, required onChanged})
+      : super(
+    key: key,
+    min: 0.0,
+    decimals: 1,
+    value: 0.0,
+    step: 0.1,
+    acceleration: 0.1,
+    decoration: InputDecoration(label: axis),
+    onChanged: onChanged,
+  );
+}
+
 
 class CustomBuilding extends Building {
   CustomBuilding({Key? key, required this.values})
