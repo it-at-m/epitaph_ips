@@ -19,6 +19,15 @@
   </p>
 </div>
 
+## Table of Contents
+- [About The Project](#about-the-project)
+- [Usage](#usage)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [Roadmap](#roadmap)
+- [License](#license)
+- [Contact](#contact)
+
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
