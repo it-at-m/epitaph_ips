@@ -20,19 +20,18 @@ class BuildingFormState extends State<BuildingForm> {
 
   static final Map fieldsNames = CustomLabels.fieldTypes["Building"];
   final Map controllers = CustomController(fieldsNames.keys).controllers;
-  final Map rawValues = {};
+  final Map buildingValues = {};
 
   void _updateValues(key, value) {
     setState(() {
-      rawValues[key] = value;
+      buildingValues[key] = value;
     });
   }
 
   _submit() {
     try {
       if (_formKey.currentState!.validate()) {
-        final Map building = CustomBuilding(values: rawValues).toJson();
-        debugPrint(rawValues.toString());
+        final Map building = CustomBuilding(values: buildingValues).toJson();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -46,7 +45,7 @@ class BuildingFormState extends State<BuildingForm> {
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text("$e"),
-              content: Text(rawValues.toString()),
+              content: Text(buildingValues.toString()),
             );
           });
     }
@@ -85,18 +84,22 @@ class BuildingFormState extends State<BuildingForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Building creation")),
-      body: Form(
+      appBar: AppBar(
+          title: const Text("Building creation")),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: Form(
         key: _formKey,
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               const Divider(height: 3.0),
               Column(
                 children: FieldBuilder("Building", controllers).fields,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton.icon(
                     label: const Text("Add location"),
@@ -130,6 +133,7 @@ class BuildingFormState extends State<BuildingForm> {
             ],
           ),
         ),
+      ),
       ),
     );
   }

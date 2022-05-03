@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'custom_widgets.dart';
+import 'package:epitaph_ips/epitaph_ips/buildings/world_location.dart';
 
 class LocationScreen extends StatefulWidget {
   const LocationScreen({Key? key}) : super(key: key);
@@ -12,17 +13,21 @@ class _LocationScreenState extends State<LocationScreen> {
   final _formKey = GlobalKey<FormState>();
   static final Map fieldsNames = CustomLabels.fieldTypes["Location"];
   final Map controllers = CustomController(fieldsNames.keys).controllers;
-  final rawValues = {};
+  final worldLocationValues = {};
 
   void _updateValues(key, value) {
     setState(() {
-      rawValues[key] = value;
+      worldLocationValues[key] = value;
     });
   }
 
   _submit() {
     if (_formKey.currentState!.validate()) {
-      Navigator.pop(context, rawValues);
+      WorldLocation location = WorldLocation(
+          streetName: worldLocationValues['streetName'],
+          streetNumber: int.parse(worldLocationValues["streetNumber"]),
+          extra: worldLocationValues['extra']);
+      Navigator.pop(context, {"location": location});
     }
   }
 
@@ -46,21 +51,24 @@ class _LocationScreenState extends State<LocationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Building: add location")),
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Column(
-                children: FieldBuilder("Location", controllers).fields,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  _submit();
-                },
-                child: const Text('Add location'),
-              ),
-            ],
+      body: Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Column(
+                  children: FieldBuilder("Location", controllers).fields,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    _submit();
+                  },
+                  child: const Text('Add location'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

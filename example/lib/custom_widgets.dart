@@ -4,7 +4,6 @@ import 'package:epitaph_ips/epitaph_ips/buildings/floor.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/point.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/polygonal_area.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/room.dart';
-import 'package:epitaph_ips/epitaph_ips/buildings/world_location.dart';
 import 'package:epitaph_ips/epitaph_ips/positioning_system/mock_beacon.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 
@@ -106,7 +105,7 @@ class CustomSpinBox extends SpinBox {
     min: 0.0,
     decimals: 1,
     value: value,
-    step: 0.1,
+    step: 0.5,
     acceleration: 0.1,
     decoration: InputDecoration(label: axis),
     onChanged: onChanged,
@@ -118,10 +117,7 @@ class CustomBuilding extends Building {
   CustomBuilding({Key? key, required this.values})
       : super(
             key: values["key"],
-            location: WorldLocation(
-                streetName: values['streetName'],
-                streetNumber: int.parse(values["streetNumber"]),
-                extra: values['extra']),
+            location: values["location"],
             floors: stages,
             area: values['area']);
 

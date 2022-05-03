@@ -37,7 +37,7 @@ class _AreaScreenState extends State<AreaScreen> {
           builder: (BuildContext context) {
             return AlertDialog(
               content: Text("$e"),
-              title: Text(_points.toString()),
+              title: const Text("Something went wrong..."),
             );
           });
     }
