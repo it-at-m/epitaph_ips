@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'custom_widgets.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/polygonal_area.dart';
@@ -14,28 +11,25 @@ class AreaScreen extends StatefulWidget {
 }
 
 class _AreaScreenState extends State<AreaScreen> {
-  //final List<Point> _points = [Point(0,0)];
-  final Map _coord = {};
-  int _i = 1;
+  final List<Point> _points = [Point(0, 0)];
 
   _updatePoint(axis, index, value) {
     setState(() {
-      if (!_coord.containsKey(index)) {
-        _coord[index] = Point(0, 0);
+      if (!_points.asMap().containsKey(index)) {
+        _points.insert(index, Point(0, 0));
       }
       if (axis == 'x') {
-        _coord[index] = Point(value, _coord[index].y);
+        _points[index] = Point(value, _points[index].y);
+      }
+      if (axis == 'y') {
+        _points[index] = Point(_points[index].x, value);
       }
     });
   }
 
   _submit() {
     try {
-      final List<Point> points = [];
-      _coord.forEach((key, value) {
-        points.add(value);
-      });
-      PolygonalArea area = PolygonalArea(points: points);
+      PolygonalArea area = PolygonalArea(points: _points);
       Navigator.pop(context, {'area': area});
     } catch (e) {
       return showDialog(
@@ -43,7 +37,7 @@ class _AreaScreenState extends State<AreaScreen> {
           builder: (BuildContext context) {
             return AlertDialog(
               content: Text("$e"),
-              title: Text(_coord.toString()),
+              title: Text(_points.toString()),
             );
           });
     }
@@ -51,33 +45,39 @@ class _AreaScreenState extends State<AreaScreen> {
 
   _addPointField() {
     setState(() {
-      _i++;
+      _points.add(Point(0,0));
     });
   }
 
-  _deletePointField() {
-    setState(() {});
+  _deletePointField(index) {
+    setState(() {
+      _points.removeAt(index);
+    });
   }
 
   List<Widget> _pointFieldsBuilder() {
-    return List.generate(_i, (index) {
+    return List.generate(_points.length, (index) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Expanded(
             child: CustomSpinBox(
               axis: Text("x($index)"),
+              value: _points[index].x,
               onChanged: (value) => _updatePoint("x", index, value),
             ),
           ),
           Expanded(
             child: CustomSpinBox(
               axis: Text("y($index)"),
+              value: _points[index].y,
               onChanged: (value) => _updatePoint("y", index, value),
             ),
           ),
           IconButton(
-            onPressed: _deletePointField(),
+            onPressed: () {
+              _deletePointField(index);
+            },
             icon: const Icon(Icons.delete),
           ),
         ],
@@ -114,10 +114,3 @@ class _AreaScreenState extends State<AreaScreen> {
     );
   }
 }
-
-/*
- 0: {"x": 0.0, "y": 0.0},
-    1: {"x": 0.0, "y": 0.0},
-    2: {"x": 0.0, "y": 0.0},
-    3: {"x": 0.0, "y": 0.0}
- */

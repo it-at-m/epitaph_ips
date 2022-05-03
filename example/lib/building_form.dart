@@ -1,5 +1,4 @@
 import 'package:example/building_view.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'custom_widgets.dart';
 import 'location_screen.dart';
@@ -47,6 +46,7 @@ class BuildingFormState extends State<BuildingForm> {
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text("$e"),
+              content: Text(rawValues.toString()),
             );
           });
     }

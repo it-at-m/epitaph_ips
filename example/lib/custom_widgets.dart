@@ -100,12 +100,12 @@ class CustomLabels {
 }
 
 class CustomSpinBox extends SpinBox {
-  CustomSpinBox({Key? key, required Text axis, required onChanged})
+  CustomSpinBox({Key? key, required Text axis, required onChanged, required value})
       : super(
     key: key,
     min: 0.0,
     decimals: 1,
-    value: 0.0,
+    value: value,
     step: 0.1,
     acceleration: 0.1,
     decoration: InputDecoration(label: axis),
