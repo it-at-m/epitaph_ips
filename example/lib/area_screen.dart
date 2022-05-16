@@ -45,7 +45,7 @@ class _AreaScreenState extends State<AreaScreen> {
 
   _addPointField() {
     setState(() {
-      _points.add(Point(0,0));
+      _points.add(Point(0, 0));
     });
   }
 
@@ -79,6 +79,7 @@ class _AreaScreenState extends State<AreaScreen> {
               _deletePointField(index);
             },
             icon: const Icon(Icons.delete),
+            color: Colors.red,
           ),
         ],
       );
@@ -89,18 +90,18 @@ class _AreaScreenState extends State<AreaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Building: add area")),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          _addPointField();
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(15),
         child: Column(
           children: [
             Column(children: _pointFieldsBuilder()),
-            ElevatedButton.icon(
-              icon: const Icon(Icons.control_point_outlined),
-              onPressed: () {
-                _addPointField();
-              },
-              label: const Text('Add Point'),
-            ),
             ElevatedButton.icon(
               onPressed: () {
                 _submit();

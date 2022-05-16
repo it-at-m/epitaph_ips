@@ -76,7 +76,7 @@ class BuildingFormState extends State<BuildingForm> {
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
+    // Clean up the controllers when the widget is disposed.
     controllers.forEach((k, v) => v.dispose());
     super.dispose();
   }

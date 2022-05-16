@@ -32,8 +32,8 @@ class CustomDivider extends Divider {
         );
 }
 
-class CustomField extends TextFormField {
-  CustomField(label, controller, {Key? key, required this.fieldKey})
+class CustomTextFormField extends TextFormField {
+  CustomTextFormField(label, controller, {Key? key, required this.fieldKey})
       : super(
           key: key,
           controller: controller,
@@ -69,7 +69,7 @@ class FieldBuilder {
   final List<Widget> fields = [];
   FieldBuilder(String type, controllers) {
     CustomLabels.fieldTypes[type].forEach((key, label) {
-      fields.add(CustomField(label, controllers[key], fieldKey: key));
+      fields.add(CustomTextFormField(label, controllers[key], fieldKey: key));
     });
   }
 }
@@ -167,8 +167,9 @@ class CustomBuilding extends Building {
 
   static Room room1 = Room(key: "01", area: roomArea1);
   static Room room2 = Room(key: "02", area: roomArea2);
-  static List<Room> rooms = [room1, room2];
+  static List<Room> rooms = [room1];
+  static Floor floor = Floor(area: floorArea, floorNumber: 0, beacons: beacons, rooms: rooms);
   static List<Floor> stages = [
-    Floor(area: floorArea, floorNumber: 0, beacons: beacons, rooms: rooms)
+    floor
   ];
 }
