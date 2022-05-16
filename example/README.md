@@ -1,17 +1,16 @@
 # Example App
 
-![Example App](/example/images/)
-![Example App 2](/example/images/)
+This App shows some components of Epitaph IPS Library
 
-## Getting Started
+## Building creation
 
-This project is a starting point for a Flutter application.
+For more information see [Building class](https://pub.dev/documentation/epitaph_ips/latest/epitaph_ips_buildings_building/Building-class.html)
 
-A few resources to get you started if this is your first Flutter project:
+![Homscreen](images/Screenshot_20220516_184706.png)
+![Building Form](images/Screenshot_20220516_184627.png)
+![Location Form](images/Screenshot_20220516_184722.png)
+![Floors Form](images/Screenshot_20220516_184743.png)
+![Area Form](images/Screenshot_20220516_184759.png)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Build with Flutter.
