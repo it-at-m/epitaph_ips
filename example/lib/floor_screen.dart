@@ -1,9 +1,9 @@
+import 'package:example/beacon_screen.dart';
 import 'package:example/custom_widgets.dart';
 import 'package:flutter/material.dart';
 import 'area_screen.dart';
 import 'room_screen.dart';
 import 'package:epitaph_ips/epitaph_ips/buildings/floor.dart';
-import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'custom_widgets.dart';
 
 class FloorScreen extends StatefulWidget {
@@ -123,7 +123,7 @@ class _FloorScreenState extends State<FloorScreen> {
                   iconSize: 45,
                   icon: const Icon(Icons.bluetooth_searching_outlined),
                   onPressed: () {
-                    _newScreen(context, index, const RoomScreen());
+                    _newScreen(context, index, const BeaconScreen());
                   },
                 ),
                 const Text('Beacons'),
@@ -173,7 +173,6 @@ class _FloorScreenState extends State<FloorScreen> {
           _addFloor();
         },
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),
         child: Column(

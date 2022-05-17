@@ -8,7 +8,7 @@ For more information see [Building class](https://pub.dev/documentation/epitaph_
 
 
 Homescreen | Building Form | Location Form
- :-:|:-:|:-|
+ :-:|:-:|:-:|
  ![Homescreen](images/Screenshot_20220516_184706.png) | ![Building Form](images/Screenshot_20220516_184627.png)  | ![Location Form](images/Screenshot_20220516_184722.png) 
 
 Add Floors Form | Add Polygonal Area Form

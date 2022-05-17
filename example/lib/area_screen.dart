@@ -96,7 +96,6 @@ class _AreaScreenState extends State<AreaScreen> {
           _addPointField();
         },
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(15),
         child: Column(
