@@ -1,23 +1,8 @@
-<div id="top"></div>
-<!-- PROJECT SHIELDS -->
-<!-- END OF PROJECT SHIELDS -->
+# Epitaph
 
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="#">
-    <img src="https://github.com/it-at-m/epitaph_ips/blob/main/images/logo.png?raw=true" alt="Logo" height="200">
-  </a>
-
-<h3 align="center">Epitaph IPS</h3>
-
-  <p align="center">
-    <i>Library with utilities to calculate a users position written in Dart</i>
-    <br /><a href="https://github.com/it-at-m/epitaph_ips/issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
-    ·
-    <a href="https://github.com/it-at-m/epitaph_ips/issues/new?assignees=&labels=&template=feature_request.md&title=">Request Feature</a>
-  </p>
-</div>
+Epitaph has a wide array of utilities to position your user in a building. The project is intended to be used to only calculate the position on the user's device.
+It has been written in Dart using the Flutter framework. Bluetooth Low Energy (BLE) beacons are used to make the calculations possible.
+Received Signal Strength Indication (RSSI) values are used to calculate the user’s location in the real world.
 
 ## Table of Contents
 - [About The Project](#about-the-project)
@@ -28,15 +13,7 @@
 - [License](#license)
 - [Contact](#contact)
 
-<!-- ABOUT THE PROJECT -->
 
-## About The Project
-
-Epitaph has a wide array of utilities to position your user in a building. The project is intended to be used to only calculate the position on the user's device.
-It has been written in Dart using the Flutter framework. Bluetooth Low Energy (BLE) beacons are used to make the calculations possible.
-Received Signal Strength Indication (RSSI) values are used to calculate the user’s location in the real world.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
 
@@ -44,7 +21,7 @@ This library has been build with:
 
 - [Flutter](https://flutter.dev/)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+
 
 ## Usage
 
@@ -136,9 +113,9 @@ calculator.calculate(...);
 
 Learn with the latest updates directly from our [Documentation.](https://pub.dev/documentation/epitaph_ips/latest/)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- CONTRIBUTING -->
+
+
 
 ## Contributing
 
@@ -160,33 +137,28 @@ We also would suggest looking into the Flutter Team's style guide [here](https:/
 
 More about this in the [CODE_OF_CONDUCT](/CODE_OF_CONDUCT.md) file.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- ROADMAP -->
+
+
 
 ## Roadmap
 
 See the [open issues](#) for a full list of proposed features, known issues and out latest Roadmap.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- LICENSE -->
+
+
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` file for more information.
+Distributed under the MIT License. See [LICENSE](LICENSE) file for more information.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- CONTACT -->
+
+
 
 ## Contact
 
-it@m - opensource@muenchendigital.io
+it@M - opensource@muenchen.de
 
 [join our slack channel](https://join.slack.com/t/epitaph-ips/shared_invite/zt-164oqyxvl-pNIGa9n6jA1fJZmk1h6zeg)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
