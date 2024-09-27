@@ -159,6 +159,6 @@ Distributed under the MIT License. See [LICENSE](LICENSE) file for more informat
 
 ## Contact
 
-it@M - opensource@muenchen.de
+it@M -  itm.innolab@muenchen.de
 
 [join our slack channel](https://join.slack.com/t/epitaph-ips/shared_invite/zt-164oqyxvl-pNIGa9n6jA1fJZmk1h6zeg)
